@@ -1,0 +1,22 @@
+[
+    {
+        "name": "john",
+        "message": "Hello there!"
+    },
+    {
+        "name": "Jane",
+        "message": "How are you?"
+    },
+    {
+        "name": "Michael",
+        "message": "See you later!"
+    },
+    {
+        "name": "Sara",
+        "message": "What's up?"
+    },
+    {
+        "name": "Few",
+        "message": "Love ya"
+    }
+]
