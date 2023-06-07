@@ -1,10 +1,8 @@
-import React, { useState } from 'react'
-
+import React from 'react'
 import useLogin from '../features/authentication/hook/useLogin'
 
 export default function Login() {
-    const [test,setTest] = useState<string>('')
-   
+    
     const {
         username,
         password,
