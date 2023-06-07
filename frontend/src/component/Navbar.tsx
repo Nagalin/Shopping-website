@@ -19,9 +19,13 @@ export default function Navbar() {
                 <Nav.Link data-testid='homepage' to='/homepage' as = {NavLink}>
                     Store
                 </Nav.Link>
+                <Nav.Link data-testid='my-store' to='/my-store' as = {NavLink}>
+                    My-store
+                </Nav.Link>
                 <Nav.Link data-testid='contact' to='/contact' as = {NavLink}>
                     Contact
                 </Nav.Link>
+                
             </Nav>
 
             <Nav className='ms-auto d-flex align-items-center gap-3'>

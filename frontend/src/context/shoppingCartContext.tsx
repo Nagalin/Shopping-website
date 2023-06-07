@@ -1,41 +1,43 @@
-import React, { useState } from 'react'
+import React from 'react'
 import SlideCanvas from '../component/SlideCanvas'
-
-interface ShoppingCartProviderProp {
-    children: React.ReactNode
-}
-
-interface shoppingCartContext {
+import useLocalStrorage from '../hook/useLocalStorage'
+interface ShoppingCartContext {
     getItemQuantity: (id: number) => number
+    getAllItemQuantity: () => number
     increaseQuantity: (id: number) => void
     decreaseQuantity: (id: number) => void
     removeFromCart: (id: number) => void
-    getAllItemQuantity: () => number,
-    openCart: () => void,
-    closeCart: () => void,
-    cartItems : CartItems[]
+    openCart: () => void
+    closeCart: () => void
+    cartItems: CartItems[]
+}
+
+interface ShoppingCartProviderProp {
+    children: React.ReactNode
 }
 
 interface CartItems {
     id: number,
     quantity: number
 }
-
-const ShoppingCartContext = React.createContext({} as shoppingCartContext)
+const ShoppingCartContext = React.createContext({} as ShoppingCartContext)
 
 export function useShoppingCart() {
     return React.useContext(ShoppingCartContext)
 }
 
 export function ShoppingCartProvider({ children }: ShoppingCartProviderProp) {
-    const [cartItems, setCartItems] = useState<CartItems[]>([])
-    const [isOpen,setIsOpen] = useState<boolean>(false)
-
-    const openCart = ()=>setIsOpen(true)
-    const closeCart = ()=>setIsOpen(false)
+    const [cartItems, setCartItems] = useLocalStrorage<CartItems[]>("shopping-cart",[])
+    const [isOpen, setIsOpen] = React.useState<boolean>(false)
 
     function getItemQuantity(id: number) {
         return cartItems.find(item => item.id === id)?.quantity || 0
+    }
+
+    function getAllItemQuantity() {
+        return cartItems.reduce(
+            (quantity, item) => quantity = item.quantity + quantity
+            , 0)
     }
 
     function increaseQuantity(id: number) {
@@ -76,11 +78,10 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProp) {
         })
     }
 
-    function getAllItemQuantity() {
-        return cartItems.reduce(
-            (quantity, item) => quantity + item.quantity
-            , 0)
-    }
+    const openCart = () => setIsOpen(true)
+
+    const closeCart = () => setIsOpen(false)
+
     return (
         <ShoppingCartContext.Provider value={{
             getItemQuantity,
@@ -88,12 +89,13 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProp) {
             decreaseQuantity,
             removeFromCart,
             getAllItemQuantity,
-            closeCart,
             openCart,
+            closeCart,
             cartItems
         }}>
             {children}
             <SlideCanvas isOpen={isOpen} />
         </ShoppingCartContext.Provider>
     )
+
 }
