@@ -14,8 +14,8 @@ export default function ShoppingCart() {
       <Row lg={3} sm={2} xs={1} style={{ marginTop: '20px' }} className='g-4'>
         {items.map((val) => {
           return (
-            <Suspense>
-              <Col key={val.id}><StoreItems {...val} /></Col>
+            <Suspense  key={val.id}>
+              <Col><StoreItems {...val} /></Col>
             </Suspense>
           )
         })}
