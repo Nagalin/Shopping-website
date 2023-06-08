@@ -6,6 +6,7 @@ export default function useToggle() {
  const toggle = ()=>setValue(currentValue=>!currentValue)
   return {
     value,
+    setValue,
     toggle
   }
 }

@@ -2,7 +2,7 @@ import React, { useEffect,lazy, Suspense } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import items from '../data/items.json'
 import Pagination from '../component/Pagination'
-import { PaginationProvider,usePagination } from '../context/paginationContext'
+import usePagination from '../features/pagination/hook/usePagination'
 const StoreItems = lazy(() => import('../component/StoreItems'))
 
 export default function ShoppingCart() {

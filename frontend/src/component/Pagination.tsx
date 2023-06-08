@@ -21,7 +21,7 @@ export default function Pagination({ itemsPerPage, totalItems,changePage }: Pagi
             <ul className='pagination'>
                 {pagesNumber.map(page => {
                     return (
-                        <li key={page} className="page-item">
+                        <li key={page} className="page-item" style={{cursor : 'pointer'}}>
                             <a onClick={()=>changePage(page)} 
                             className="page-link">{page}</a>
                         </li>

@@ -1,7 +1,7 @@
 import React, { lazy, Suspense } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { ShoppingCartProvider } from './context/shoppingCartContext'
-import { PaginationProvider } from './context/paginationContext'
+
 
 const Login = lazy(() => import('./pages/Login'))
 const Profile = lazy(() => import('./pages/Profile'))
@@ -14,7 +14,7 @@ const Shopping = lazy(() => import('./pages/ShoppingCart'))
 
 export default function App() {
   return (
-    <PaginationProvider>
+   
       <ShoppingCartProvider>
 
         <Suspense>
@@ -38,7 +38,7 @@ export default function App() {
           </Routes>
         </Suspense>
       </ShoppingCartProvider>
-    </PaginationProvider>
+  
 
   )
 }
