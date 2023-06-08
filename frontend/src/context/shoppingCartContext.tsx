@@ -1,6 +1,7 @@
 import React from 'react'
 import SlideCanvas from '../component/SlideCanvas'
 import useLocalStrorage from '../hook/useLocalStorage'
+
 interface ShoppingCartContext {
     getItemQuantity: (id: number) => number
     getAllItemQuantity: () => number

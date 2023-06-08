@@ -20,14 +20,16 @@ export default function SlideCanvas({ isOpen }: WishListProp) {
                         return <WishList key={item.id} {...item} />
                     })}
                     <div role='total' className="display-6 ms-auto fw-bold">Total: {
-                        formatCurrency( cartItems.reduce((total,currItem)=>{
-                            const item = data.find(i=> i.id === currItem.id)
-                            
-                            return total + ((item?.price || 0 )* currItem.quantity)
-                        },0))
-                           
+                        formatCurrency(cartItems.reduce((total, currItem) => {
+                            const item = data.find(i => i.id === currItem.id)
+
+                            return total + ((item?.price || 0) * currItem.quantity)
+                        }, 0))
+
                     }</div>
-                    <Button role='checkout'><div className="fs-5">Check out</div></Button>
+                    <Button role='checkout'>
+                        <div className="fs-5">Check out</div>
+                    </Button>
                 </Stack>
 
             </Offcanvas.Body>

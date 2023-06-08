@@ -1,9 +1,9 @@
 import { cleanup, screen, render, fireEvent } from "@testing-library/react";
 import React from "react";
-import { ShoppingCartProvider, useShoppingCart } from "./shoppingCartContext";
+import { ShoppingCartProvider, useShoppingCart } from "../shoppingCartContext";
 describe('Test shoppingCart context', () => {
     beforeEach(() => {
-        jest.mock('../component/SlideCanvas', () => () => <div>Mock canvas</div>)
+        jest.mock('../../component/SlideCanvas', () => () => <div>Mock canvas</div>)
     })
 
     afterEach(() => {

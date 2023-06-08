@@ -1,5 +1,5 @@
 import React from "react";
-import {render, act, screen, fireEvent, cleanup,} from "@testing-library/react";
+import { render, act, screen, fireEvent, cleanup, } from "@testing-library/react";
 import Navbar from "../Navbar";
 import { BrowserRouter } from "react-router-dom";
 import * as router from "react-router";
@@ -25,34 +25,25 @@ describe("Test navbar component", () => {
 
   test("Should navigate to profile page", () => {
     const profileLink = screen.getByTestId("profile");
-    act(() => {
-      fireEvent.click(profileLink);
-    });
+    fireEvent.click(profileLink);
     expect(navigate).toHaveBeenCalledWith("/profile", expect.any(Object));
   });
 
   test("Should navigate to homepage", () => {
     const profileLink = screen.getByTestId("homepage");
-    act(() => {
-      fireEvent.click(profileLink);
-    });
+    fireEvent.click(profileLink);
     expect(navigate).toHaveBeenCalledWith("/homepage", expect.any(Object));
   });
 
   test("Should navigate to contact page", () => {
     const profileLink = screen.getByTestId("contact");
-    act(() => {
-      fireEvent.click(profileLink);
-    });
+    fireEvent.click(profileLink);
     expect(navigate).toHaveBeenCalledWith("/contact", expect.any(Object));
   });
 
   test("Should render chatbox component", () => {
     const chatLink = screen.getByTestId("chat");
-    act(() => {
-      fireEvent.click(chatLink);
-    });
-
+    fireEvent.click(chatLink);
     expect(screen.getByRole("chatbox")).toBeInTheDocument();
   });
 });

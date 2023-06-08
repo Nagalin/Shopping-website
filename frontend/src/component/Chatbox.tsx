@@ -32,8 +32,7 @@ export default function ChatBox() {
                   </span>
                 </div>
               </ListGroup.Item>
-            
-      )
+          )
         })}
       </ListGroup>
     </div>

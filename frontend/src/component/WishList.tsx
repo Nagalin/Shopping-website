@@ -15,7 +15,8 @@ export default function WishList({ id, quantity }: WishListProps) {
     if (item == null) return null
 
     return (
-        <Stack role='wrapper' direction='horizontal' gap={2} className='d-flex align-items-center'>
+        <Stack role='wrapper' direction='horizontal' gap={2} 
+        className='d-flex align-items-center'>
             <img src={item?.imgUrl} style=
                 {{
                     width: '125px', height: '75px',
@@ -41,7 +42,9 @@ export default function WishList({ id, quantity }: WishListProps) {
                 {formatCurrency(item.price * quantity)}
             </div>
 
-            <Button onClick={()=>removeFromCart(id)} variant='outline-danger'>&times;</Button>
+            <Button onClick={()=>removeFromCart(id)} variant='outline-danger'>
+                &times;
+            </Button>
         </Stack>
     )
 }
