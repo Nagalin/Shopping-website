@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Card} from 'react-bootstrap'
-import formatCurrency from '../utilites/formatCurrency'
-import useToggle from '../hook/useToggle'
+import formatCurrency from '../../../utilites/formatCurrency'
+import useToggle from '../../../hook/useToggle'
 import Modal from './Modal'
 
 type SellerStoreProp = {

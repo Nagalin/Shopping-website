@@ -1,15 +1,13 @@
-import React, { useEffect,useState,useRef } from 'react';
+import React from 'react';
 import { Modal as BootstrapModal, Button, Form } from 'react-bootstrap';
-import items from '../data/items.json'
-import formatCurrency from '../utilites/formatCurrency';
-import useAddProduct from '../features/add-product/hook/useAddProduct'
+import formatCurrency from '../../../utilites/formatCurrency';
+import useAddProduct from '../hook/useAddProduct'
+
 interface ModalProp {
     value: boolean
     toggle: () => void
     id: number
 }
-
-
 
 export default function Modal({ value, toggle, id }: ModalProp) {
    const {
