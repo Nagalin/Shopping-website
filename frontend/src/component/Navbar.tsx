@@ -1,5 +1,5 @@
 
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import { Button, Nav, Navbar as NavbarBS } from 'react-bootstrap'
 import { NavLink, Outlet } from 'react-router-dom'
 import useToggle from '../hook/useToggle'
@@ -11,7 +11,7 @@ export default function Navbar() {
     const { value, toggle, setValue } = useToggle()
     const buttonRef = useRef<HTMLButtonElement>(null)
     const { getAllItemQuantity, openCart, cartItems } = useShoppingCart()
-    useClickOutside({ref : buttonRef , cb :()=>setValue(false)})
+    useClickOutside({ref : buttonRef , cb :()=>setValue(false) , value : value})
     
     return (
         <>

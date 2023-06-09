@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom'
 import { ShoppingCartProvider } from './context/shoppingCartContext'
 
 
-const Login = lazy(() => import('./pages/Login'))
+const Login = lazy(() => import('./pages/LandingPage'))
 const Profile = lazy(() => import('./pages/Profile'))
 const Navbar = lazy(() => import('./component/Navbar'))
 const Contact = lazy(() => import('./pages/Contact'))

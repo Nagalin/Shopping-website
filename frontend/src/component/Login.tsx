@@ -1,7 +1,10 @@
 import React from 'react'
 import useLogin from '../features/authentication/hook/useLogin'
 
-export default function Login() {
+interface LoginProp {
+    setMode : (mode : string)=> void
+}
+export default function Login({setMode} : LoginProp) {
     
     const {
         username,
@@ -14,14 +17,23 @@ export default function Login() {
     return (
         <div className='d-flex  justify-content-center align-items-center' style={{ height: '100vh' }}>
             <form onSubmit={handleLogin}>
-                <div className="d-flex gap-2 flex-column" style={{ padding: '20px', borderRadius: '10px', backgroundColor: '#F7F7F7' }}>
+                <div className="d-flex gap-2 flex-column" style={{ padding: '20px', borderRadius: '10px', backgroundColor: '#F7F7F7'}}>
                     <div className="display-4" >Login</div>
                     <label className='form-label' style={{ fontSize: '1.5rem' }}>Username</label>
                     <input data-testid='username-input' ref={username} type="text" required className="form-control" style={{ width: '400px', fontSize: '1.2rem' }} />
                     <label className='form-label' style={{ fontSize: '1.5rem' }}>Password</label>
                     <input data-testid="password-input"  ref={password} type="password" required className="form-control" style={{ width: '400px', marginBottom: '20px' }} />
-                    <button className="btn btn-success" style={{ fontSize: '1.3rem' }}>Login</button>
-                    <div data-testid='error'>{ error}</div>
+                    <div onClick={()=>setMode('register')} style={
+                        {cursor : 'pointer',
+                            marginTop : '-20px'
+                        
+                        }}>
+                            don't have an account ? Sign up here
+                            </div>
+                    <button className="btn btn-success mt-3 " style={{ fontSize: '1.3rem' }}>Login</button>
+                    {error && <div data-testid='error' className="alert alert-danger">
+                        {error}
+                    </div>}
                 </div>
             </form>
         </div>
