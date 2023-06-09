@@ -1,6 +1,7 @@
 import React, { lazy, Suspense } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { ShoppingCartProvider } from './context/shoppingCartContext'
+import MyStore from './pages/MyStore'
 
 
 const Login = lazy(() => import('./pages/LandingPage'))
@@ -30,6 +31,8 @@ export default function App() {
 
               <Route path='/order' element={<Seller />} />
               <Route path='/add-product' element={<Product />} />
+
+              <Route path='my-store' element={<MyStore/>}/>
 
             </Route>
 

@@ -3,7 +3,7 @@ import { Col, Container, Row } from 'react-bootstrap'
 import items from '../data/items.json'
 import Pagination from '../component/Pagination'
 import usePagination from '../features/pagination/hook/usePagination'
-const StoreItems = lazy(() => import('../component/StoreItems'))
+const SellerStore = lazy(() => import('../component/SellerStore'))
 
 export default function ShoppingCart() {
   const {
@@ -27,7 +27,7 @@ export default function ShoppingCart() {
         {currentItems.map((val) => {
           return (
             <Suspense  key={val.id}>
-              <Col><StoreItems {...val} /></Col>
+              <Col><SellerStore {...val} /></Col>
             </Suspense>
           )
         })}
