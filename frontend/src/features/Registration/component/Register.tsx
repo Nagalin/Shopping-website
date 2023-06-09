@@ -1,6 +1,5 @@
 import React from 'react'
-import { Container, Alert } from 'react-bootstrap'
-import useRegister from '../features/Registration/hook/useRegister'
+import useRegister from '../hook/useRegister'
 
 interface RegisterProp {
     setMode: (mode: string) => void

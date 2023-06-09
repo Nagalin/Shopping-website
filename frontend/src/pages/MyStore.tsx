@@ -1,7 +1,7 @@
 import React, { lazy, Suspense } from 'react'
 import { Col, Container, Row  } from 'react-bootstrap'
 import items from '../data/items.json'
-import Pagination from '../component/Pagination'
+import Pagination from '../features/pagination/component/Pagination'
 import usePagination from '../features/pagination/hook/usePagination'
 const SellerStore = lazy(() => import('../features/add-product/component/SellerStore'))
 

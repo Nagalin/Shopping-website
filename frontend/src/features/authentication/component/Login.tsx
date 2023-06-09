@@ -1,5 +1,5 @@
 import React from 'react'
-import useLogin from '../features/authentication/hook/useLogin'
+import useLogin from '../hook/useLogin'
 
 interface LoginProp {
     setMode : (mode : string)=> void

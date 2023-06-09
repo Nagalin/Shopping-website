@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import Login from '../component/Login'
-import Register from '../component/Register'
+import Login from '../features/authentication/component/Login'
+import Register from '../features/Registration/component/Register'
 export default function LandingPage() {
     const [mode,setMode] = useState<string>('login')
   return (

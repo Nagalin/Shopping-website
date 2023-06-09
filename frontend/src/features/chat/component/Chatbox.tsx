@@ -1,6 +1,6 @@
 import React from 'react';
 import { ListGroup } from 'react-bootstrap';
-import useChat from '../features/chat/hook/useChat';
+import useChat from '../hook/useChat';
 
 interface ChatMessage {
   name: string;

@@ -3,7 +3,7 @@ import React, { useRef } from 'react'
 import { Button, Nav, Navbar as NavbarBS } from 'react-bootstrap'
 import { NavLink, Outlet } from 'react-router-dom'
 import useToggle from '../hook/useToggle'
-import Chatbox from './Chatbox'
+import Chatbox from '../features/chat/component/Chatbox'
 import { useShoppingCart } from '../context/shoppingCartContext'
 import useClickOutside from '../hook/useClickOutside'
 
