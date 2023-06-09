@@ -1,5 +1,5 @@
-import React, { useEffect,lazy, Suspense } from 'react'
-import { Col, Container, Row } from 'react-bootstrap'
+import React, { lazy, Suspense } from 'react'
+import { Col, Container, Row  } from 'react-bootstrap'
 import items from '../data/items.json'
 import Pagination from '../component/Pagination'
 import usePagination from '../features/pagination/hook/usePagination'
