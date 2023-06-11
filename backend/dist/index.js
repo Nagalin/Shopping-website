@@ -7,14 +7,15 @@ const express_1 = __importDefault(require("express"));
 const body_parser_1 = __importDefault(require("body-parser"));
 require('dotenv').config();
 const register_1 = __importDefault(require("./routes/registeration/register"));
+const login_1 = __importDefault(require("./routes/login/login"));
+const passport_config_1 = __importDefault(require("./setup/passport-config"));
 const app = (0, express_1.default)();
-const mongodb = require('./database/database');
+require('./database/database');
 app.use(body_parser_1.default.json());
 app.use(body_parser_1.default.urlencoded({ extended: false }));
-/* app.get('/',(req,res)=>{
-    const user = new User({username : 'admin' , password : 'password' , role : 'admin'})
-    user.save().then(()=>res.send('success'))
-    .catch(err=>console.error(err))
-}) */
 app.use(register_1.default);
+app.use(login_1.default);
+app.get('/protected', passport_config_1.default.authenticate('jwt', { session: false }), (req, res) => {
+    res.json({ message: 'You have access to this protected route!' });
+});
 app.listen(process.env.PORT, () => console.log('Listening on port 8000'));

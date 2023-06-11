@@ -1,31 +1,29 @@
 import express, { Router } from "express";
 import User from "../../database/schema/user";
-import user from "../../database/schema/user";
-const mongodb = require('../../database/database')
-const router: Router = express.Router();
+const jwt = require('jsonwebtoken')
 
+require('../../database/database')
+const router: Router = express.Router();
+require('dotenv').config()
 router.post('/register', async (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
+
+    const token = jwt.sign(username,process.env.SECRET_KEY)
+    res.json(token)
     
-    try {
-      const existingUser = await User.find({ username: username });
-      console.log(existingUser)
-  
-      if (existingUser.length > 0) {
-        return res.send({ message: 'Username is already in use' });
-      }
-  
-      // Create a new user account
-      // ...
-      // (code to create the user account goes here)
-  
-      res.send({ message: 'Account created' });
-    } catch (error) {
-      // Handle any errors that occur during the process
-      res.status(500).send({ message: 'An error occurred' });
-    }
-  });
+})
+
+/* router.get('/test',(req,res)=>{
+  const authHeader = req.headers['authorization']
+  const token = authHeader && authHeader.split(' ')[1]
+  console.log(token)
+  jwt.verify(token,process.env.SECRET_KEY,(err: any,user: any)=>{
+    if(err) return res.status(401).end()
+    console.log(user)
+  })
+  res.status(200).end()
+}) */
   
 
 export default router;

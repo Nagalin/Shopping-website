@@ -13,24 +13,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const jwt = require('jsonwebtoken');
-require('../../database/database');
+const mongodb = require('../../database/database');
 const router = express_1.default.Router();
-require('dotenv').config();
-router.post('/register', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.post('/login', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const username = req.body.username;
     const password = req.body.password;
-    const token = jwt.sign(username, process.env.SECRET_KEY);
-    res.json(token);
+    try {
+    }
+    catch (error) {
+        // Handle any errors that occur during the process
+        res.status(500).send({ message: 'An error occurred' });
+    }
 }));
-/* router.get('/test',(req,res)=>{
-  const authHeader = req.headers['authorization']
-  const token = authHeader && authHeader.split(' ')[1]
-  console.log(token)
-  jwt.verify(token,process.env.SECRET_KEY,(err: any,user: any)=>{
-    if(err) return res.status(401).end()
-    console.log(user)
-  })
-  res.status(200).end()
-}) */
 exports.default = router;

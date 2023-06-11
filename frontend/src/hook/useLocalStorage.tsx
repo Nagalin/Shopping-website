@@ -12,5 +12,4 @@ export default function useLocalStrorage<T>(key: string, initialValue: T) {
   }, [key, value])
 
   return [value, setValue] as [typeof value, typeof setValue]
-
 }

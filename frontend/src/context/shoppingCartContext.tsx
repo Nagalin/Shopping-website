@@ -79,7 +79,6 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProp) {
     }
 
     const openCart = () => setIsOpen(true)
-
     const closeCart = () => setIsOpen(false)
 
     return (
