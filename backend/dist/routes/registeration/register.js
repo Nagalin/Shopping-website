@@ -12,25 +12,39 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
-const jwt = require('jsonwebtoken');
-require('../../database/database');
-const router = express_1.default.Router();
+const express_1 = require("express");
+const user_1 = __importDefault(require("../../database/schema/user"));
+const bcrypt = require('bcryptjs');
 require('dotenv').config();
+const router = (0, express_1.Router)();
 router.post('/register', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const username = req.body.username;
     const password = req.body.password;
-    const token = jwt.sign(username, process.env.SECRET_KEY);
-    res.json(token);
+    //Check if username is already in used
+    try {
+        const oldUser = yield user_1.default.findOne({ username: username });
+        if (oldUser)
+            return res.send({ message: 'Username is already in used' });
+    }
+    catch (err) {
+        console.error(err);
+        res.status(500).end();
+    }
+    //hasing a password and save new account to database
+    const salt = yield bcrypt.genSalt(10);
+    const hashedPassword = yield bcrypt.hash(password, salt);
+    const account = new user_1.default({
+        username: username,
+        password: hashedPassword,
+        role: 'user'
+    });
+    try {
+        yield account.save();
+        res.send({ message: 'Account created' });
+    }
+    catch (err) {
+        console.error(err);
+        res.status(500).end();
+    }
 }));
-/* router.get('/test',(req,res)=>{
-  const authHeader = req.headers['authorization']
-  const token = authHeader && authHeader.split(' ')[1]
-  console.log(token)
-  jwt.verify(token,process.env.SECRET_KEY,(err: any,user: any)=>{
-    if(err) return res.status(401).end()
-    console.log(user)
-  })
-  res.status(200).end()
-}) */
 exports.default = router;

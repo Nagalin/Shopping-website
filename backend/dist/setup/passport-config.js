@@ -11,8 +11,9 @@ const option = {
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     secretOrKey: process.env.SECRET_KEY
 };
-passport_1.default.use(new jwtStrategy(option, (payload, done) => {
-    if (payload === 'admin') {
+passport_1.default.use('jwt', new jwtStrategy(option, (payload, done) => {
+    console.log(payload.username);
+    if (payload.username === 'admin') {
         console.log('here');
         return done(null, 'admin');
     }

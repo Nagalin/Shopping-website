@@ -1,29 +1,42 @@
-import express, { Router } from "express";
+import { Router } from "express";
 import User from "../../database/schema/user";
-const jwt = require('jsonwebtoken')
-
-require('../../database/database')
-const router: Router = express.Router();
+const bcrypt = require('bcryptjs')
 require('dotenv').config()
-router.post('/register', async (req, res) => {
-    const username = req.body.username;
-    const password = req.body.password;
+const router = Router();
 
-    const token = jwt.sign(username,process.env.SECRET_KEY)
-    res.json(token)
-    
+router.post('/register', async (req, res) => {
+  const username = req.body.username;
+  const password = req.body.password;
+
+  //Check if username is already in used
+  try {
+    const oldUser = await User.findOne({ username: username })
+    if (oldUser) return res.send({ message: 'Username is already in used' })
+  } catch (err) {
+    console.error(err)
+    res.status(500).end()
+
+  }
+
+
+  //hasing a password and save new account to database
+  const salt = await bcrypt.genSalt(10)
+  const hashedPassword = await bcrypt.hash(password, salt)
+  const account = new User({
+    username: username,
+    password: hashedPassword,
+    role: 'user'
+  })
+
+  try {
+    await account.save()
+    res.send({ message: 'Account created' })
+
+  } catch (err) {
+    console.error(err)
+    res.status(500).end()
+  }
 })
 
-/* router.get('/test',(req,res)=>{
-  const authHeader = req.headers['authorization']
-  const token = authHeader && authHeader.split(' ')[1]
-  console.log(token)
-  jwt.verify(token,process.env.SECRET_KEY,(err: any,user: any)=>{
-    if(err) return res.status(401).end()
-    console.log(user)
-  })
-  res.status(200).end()
-}) */
-  
 
 export default router;
