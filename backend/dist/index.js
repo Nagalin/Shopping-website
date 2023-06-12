@@ -6,11 +6,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const body_parser_1 = __importDefault(require("body-parser"));
 require('dotenv').config();
-const register_1 = __importDefault(require("./routes/registeration/register"));
-const login_1 = __importDefault(require("./routes/login/login"));
+const register_1 = __importDefault(require("./routes/register"));
+const login_1 = __importDefault(require("./routes/login"));
 const passport_config_1 = __importDefault(require("./setup/passport-config"));
+const cors = require('cors');
 const app = (0, express_1.default)();
 require('./database/database');
+app.use(cors({
+    origin: 'http://localhost:3000',
+    credentials: true
+}));
 app.use(passport_config_1.default.initialize());
 app.use(body_parser_1.default.json());
 app.use(body_parser_1.default.urlencoded({ extended: false }));

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import User from "../../database/schema/user";
+import User from "../database/schema/user";
 const bcrypt = require('bcryptjs')
 const router = Router();
 

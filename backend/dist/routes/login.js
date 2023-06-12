@@ -13,38 +13,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const user_1 = __importDefault(require("../../database/schema/user"));
+const user_1 = __importDefault(require("../database/schema/user"));
 const bcrypt = require('bcryptjs');
-require('dotenv').config();
 const router = (0, express_1.Router)();
-router.post('/register', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.post('/login', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const username = req.body.username;
     const password = req.body.password;
-    //Check if username is already in used
     try {
-        const oldUser = yield user_1.default.findOne({ username: username });
-        if (oldUser)
-            return res.status(409).send({ message: 'Username is already in used' });
+        //look up in the database if this credential exist
+        const account = yield user_1.default.findOne({ username: username });
+        if (account && (yield bcrypt.compare(password, account === null || account === void 0 ? void 0 : account.password))) {
+            return res.status(200).end();
+        }
     }
     catch (err) {
         console.error(err);
-        res.status(500).end();
+        return res.status(500).end();
     }
-    //hasing a password and save new account to database
-    const salt = yield bcrypt.genSalt(10);
-    const hashedPassword = yield bcrypt.hash(password, salt);
-    const account = new user_1.default({
-        username: username,
-        password: hashedPassword,
-        role: 'user'
-    });
-    try {
-        yield account.save();
-        res.send({ message: 'Account created' });
-    }
-    catch (err) {
-        console.error(err);
-        res.status(500).end();
-    }
+    res.status(401).send({ message: 'Invalid username or password' });
 }));
 exports.default = router;

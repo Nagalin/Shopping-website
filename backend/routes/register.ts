@@ -1,5 +1,5 @@
 import { Router } from "express";
-import User from "../../database/schema/user";
+import User from "../database/schema/user";
 const bcrypt = require('bcryptjs')
 require('dotenv').config()
 const router = Router();
@@ -11,7 +11,7 @@ router.post('/register', async (req, res) => {
   //Check if username is already in used
   try {
     const oldUser = await User.findOne({ username: username })
-    if (oldUser) return res.send({ message: 'Username is already in used' })
+    if (oldUser) return res.status(409).send({ message: 'Username is already in used' })
   } catch (err) {
     console.error(err)
     res.status(500).end()
