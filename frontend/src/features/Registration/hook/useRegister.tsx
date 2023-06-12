@@ -26,7 +26,7 @@ export default function useRegister() {
                 navigate('/')
             }
         }).catch(err =>{
-            if(err.response.status === 409) setError(err.response.data.message)
+            setError(err.response.data.message)
         })
     }
 

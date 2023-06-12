@@ -28,7 +28,9 @@ router.post('/register', (req, res) => __awaiter(void 0, void 0, void 0, functio
     }
     catch (err) {
         console.error(err);
-        res.status(500).end();
+        res.status(500).send({
+            message: 'error occurs on server side , plesase try again later'
+        });
     }
     //hasing a password and save new account to database
     const salt = yield bcrypt.genSalt(10);
@@ -40,11 +42,13 @@ router.post('/register', (req, res) => __awaiter(void 0, void 0, void 0, functio
     });
     try {
         yield account.save();
-        res.send({ message: 'Account created' });
+        res.status(200).send({ message: 'Account created' });
     }
     catch (err) {
         console.error(err);
-        res.status(500).end();
+        res.status(500).send({
+            message: 'error occurs on server side , plesase try again later'
+        });
     }
 }));
 exports.default = router;

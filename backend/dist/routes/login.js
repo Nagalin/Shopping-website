@@ -28,7 +28,9 @@ router.post('/login', (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
     catch (err) {
         console.error(err);
-        return res.status(500).end();
+        return res.status(500).send({
+            message: 'error occurs on server side , plesase try again later'
+        });
     }
     res.status(401).send({ message: 'Invalid username or password' });
 }));

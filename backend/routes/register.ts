@@ -8,16 +8,17 @@ router.post('/register', async (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
 
+
   //Check if username is already in used
   try {
     const oldUser = await User.findOne({ username: username })
     if (oldUser) return res.status(409).send({ message: 'Username is already in used' })
   } catch (err) {
     console.error(err)
-    res.status(500).end()
-
+    res.status(500).send({
+      message: 'error occurs on server side , plesase try again later'
+    })
   }
-
 
   //hasing a password and save new account to database
   const salt = await bcrypt.genSalt(10)
@@ -30,11 +31,13 @@ router.post('/register', async (req, res) => {
 
   try {
     await account.save()
-    res.send({ message: 'Account created' })
+    res.status(200).send({ message: 'Account created' })
 
   } catch (err) {
     console.error(err)
-    res.status(500).end()
+    res.status(500).send({
+      message: 'error occurs on server side , plesase try again later'
+    })
   }
 })
 

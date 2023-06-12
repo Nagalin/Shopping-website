@@ -1,6 +1,7 @@
 import React,{FormEvent, useRef,useState} from 'react'
 import user from '../../../data/user.json'
 import { useNavigate } from 'react-router-dom'
+import axios from '../../../lib/axios'
 
 export default function useLogin() {
     const username = useRef<HTMLInputElement>(null)
@@ -11,16 +12,16 @@ export default function useLogin() {
     const handleLogin = (e: FormEvent<HTMLFormElement>): void =>{
         e.preventDefault()
 
-        const found = user.find(val=>{
-          return username.current?.value === val.username && 
-          password.current?.value === val.password
+        axios.post('http://localhost:8000/login',{
+          username : username.current?.value,
+          password : password.current?.value
+        }).then(response =>{
+          if(response.status === 200) {
+            navigate('/homepage')
+          }
+        }).catch(err =>{
+          setError(err.response.data.message)
         })
-
-        if(!found) setError('invalid username or password')
-        else if(found.role === 'user') navigate('/homepage')
-        else if(found.role === 'seller') navigate('/order')
-        else if(found.role === 'admin') navigate('/admin')
-         
     }
 
   return {
