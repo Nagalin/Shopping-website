@@ -7,10 +7,12 @@ interface useClickOutsideProp {
 }
 
 export default function useClickOutside({ref, cb,value} : useClickOutsideProp) {
+    
     const handleClickOutside = (e : any)=> {
         if(value && !ref.current?.contains(e.target)) cb()
     }
+    window.addEventListener('click',handleClickOutside)
     
-  window.addEventListener('click',handleClickOutside)
+  
  
 }

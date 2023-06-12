@@ -1,5 +1,5 @@
 import React,{FormEvent, useRef,useState} from 'react'
-import user from '../../../data/user.json'
+
 import { useNavigate } from 'react-router-dom'
 import axios from '../../../lib/axios'
 
@@ -17,7 +17,7 @@ export default function useLogin() {
           password : password.current?.value
         }).then(response =>{
           if(response.status === 200) {
-            localStorage.setItem('token',JSON.stringify(response.data.token))
+            localStorage.setItem('jwtToken',response.data.token)
             navigate('/homepage')
           }
         }).catch(err =>{

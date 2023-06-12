@@ -1,7 +1,12 @@
-import axios from 'axios'
+import axios from 'axios';
 
-const instance = axios.create({
-    withCredentials : true
-})
+const axiosInstance = axios.create({
+  headers: {
+    common: {
+        // Retrieve the token from storage
+      'Authorization': `Bearer ${localStorage.getItem('jwtToken')}` 
+    }
+  }
+});
 
-export default instance
+export default axiosInstance;

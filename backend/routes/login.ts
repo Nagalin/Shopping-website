@@ -4,8 +4,8 @@ import jwt from 'jsonwebtoken'
 require('dotenv').config()
 const bcrypt = require('bcryptjs')
 const router = Router();
-
 const KEY = process.env.SECRET_KEY
+
 router.post('/login', async (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
