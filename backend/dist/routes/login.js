@@ -14,16 +14,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const user_1 = __importDefault(require("../database/schema/user"));
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+require('dotenv').config();
 const bcrypt = require('bcryptjs');
 const router = (0, express_1.Router)();
+const KEY = process.env.SECRET_KEY;
 router.post('/login', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const username = req.body.username;
     const password = req.body.password;
     try {
-        //look up in the database if this credential exist
+        //look up in the database if this credential valid
         const account = yield user_1.default.findOne({ username: username });
         if (account && (yield bcrypt.compare(password, account === null || account === void 0 ? void 0 : account.password))) {
-            return res.status(200).end();
+            const payload = { id: account._id, role: account.role };
+            const token = jsonwebtoken_1.default.sign(payload, KEY);
+            return res.status(200).send({ token: token });
         }
     }
     catch (err) {

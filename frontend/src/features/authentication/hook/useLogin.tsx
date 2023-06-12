@@ -17,6 +17,7 @@ export default function useLogin() {
           password : password.current?.value
         }).then(response =>{
           if(response.status === 200) {
+            localStorage.setItem('token',JSON.stringify(response.data.token))
             navigate('/homepage')
           }
         }).catch(err =>{
