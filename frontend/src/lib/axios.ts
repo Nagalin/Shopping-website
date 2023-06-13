@@ -4,7 +4,7 @@ const axiosInstance = axios.create({
   headers: {
     common: {
         // Retrieve the token from storage
-      'Authorization': `Bearer ${localStorage.getItem('jwtToken')}` 
+      'authorization': `Bearer ${JSON.parse(localStorage.getItem('jwtToken')!)}` 
     }
   }
 });

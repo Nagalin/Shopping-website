@@ -17,10 +17,12 @@ export default function useLogin() {
           password : password.current?.value
         }).then(response =>{
           if(response.status === 200) {
-            localStorage.setItem('jwtToken',response.data.token)
+            
+            localStorage.setItem('jwtToken',JSON.stringify(response.data.token))
             navigate('/homepage')
           }
         }).catch(err =>{
+          console.error(err)
           setError(err.response.data.message)
         })
     }
