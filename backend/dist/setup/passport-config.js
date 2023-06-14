@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const passport_1 = __importDefault(require("passport"));
-const user_1 = __importDefault(require("../database/schema/user"));
+const User_1 = __importDefault(require("../database/schema/User"));
 const jwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 require('dotenv').config();
@@ -24,7 +24,7 @@ const option = {
 passport_1.default.use('jwt', new jwtStrategy(option, (payload, done) => __awaiter(void 0, void 0, void 0, function* () {
     console.log(payload.id);
     try {
-        const user = yield user_1.default.findById(payload.id);
+        const user = yield User_1.default.findById(payload.id);
         if (user)
             return done(null, user);
         return done(null, false);

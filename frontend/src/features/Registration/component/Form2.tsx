@@ -1,24 +1,19 @@
-import React from 'react'
-import useRegister from '../hook/useRegister'
+import React, { useEffect } from 'react'
+import { useReigsterContext } from '../context/useRegister'
 
-interface RegisterProp {
-    setMode: (mode: string) => void
-}
 
-export default function Register({ setMode }: RegisterProp) {
-    const { username,
-        password,
-        confirmPassword,
-        handleRegister,
-        error
-    } = useRegister()
 
+
+export default function Register() {
+    const {handleRegister} = useReigsterContext()
+    
     return (
 
         <div className='d-flex  justify-content-center align-items-center' style={{ height: '100vh' }}>
-            <form onSubmit={handleRegister} >
+            <button onClick={handleRegister}>click me</button>
+            <form /* onSubmit={handleRegister} */ >
 
-                <div className="d-flex gap-2 flex-column" style={{ padding: '20px', borderRadius: '10px', backgroundColor: '#F7F7F7' }}>
+                {/* <div className="d-flex gap-2 flex-column" style={{ padding: '20px', borderRadius: '10px', backgroundColor: '#F7F7F7' }}>
                     <div className="display-4" >Register</div>
                     <label className='form-label' style={{ fontSize: '1.5rem' }}>Username</label>
                     <input ref={username} data-testid='username-input' type="text" required className="form-control" style={{ width: '400px', fontSize: '1.2rem' }} />
@@ -26,7 +21,7 @@ export default function Register({ setMode }: RegisterProp) {
                     <input ref={password} data-testid="password-input" type="password" required className="form-control" style={{ width: '400px', marginBottom: '20px' }} />
                     <label className='form-label' style={{ fontSize: '1.5rem' }}>Confirm Password</label>
                     <input ref={confirmPassword} data-testid="password-input" type="password" required className="form-control" style={{ width: '400px', marginBottom: '20px' }} />
-                    <div onClick={() => setMode('login')} style={
+                    <div  style={
                         {
                             cursor: 'pointer',
                             marginTop: '-20px'
@@ -39,7 +34,7 @@ export default function Register({ setMode }: RegisterProp) {
                         {error}
                     </div>}
                     
-                </div>
+                </div> */}
             </form>
         </div>
     )

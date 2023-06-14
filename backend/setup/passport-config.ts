@@ -1,5 +1,5 @@
 import passport from 'passport'
-import User from '../database/schema/user'
+import User from '../database/schema/User'
 const jwtStrategy = require('passport-jwt').Strategy
 const ExtractJwt = require('passport-jwt').ExtractJwt
 require('dotenv').config()

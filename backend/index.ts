@@ -1,16 +1,29 @@
 import  express  from "express";
 import bodyParser from 'body-parser'
-require('dotenv').config()
 import register from './routes/register'
 import login from './routes/login'
 import passport from "./setup/passport-config";
+import User from "./database/schema/User";
+import session, { SessionData } from 'express-session'
 const cors = require('cors')
-const app = express()
+require('dotenv').config()
 require('./database/database')
 const PORT = process.env.PORT!
+
+const app = express()
+
+interface CustomSessionData extends SessionData {
+    username?: string,
+    password : string
+  }
 app.use(cors({
     origin: 'http://localhost:3000',
     credentials : true
+}))
+app.use(session({
+    secret : 'something',
+    saveUninitialized : false,
+    resave : false
 }))
 app.use(passport.initialize());
 app.use(bodyParser.json())
@@ -26,5 +39,18 @@ app.get('/checkauth', passport.authenticate('jwt', { session: false }),
       res.status(200).end()
     }
 );
+
+app.post('/checkUsername',async(req,res)=>{
+    console.log(req.body.username)
+    const oldUser = await User.findOne({username : req.body.username})
+    if(oldUser) return res.status(409).end()
+    res.status(200).end()
+})
+
+app.post('/test',(req,res)=>{
+    console.log(req.body.username)
+    console.log(req.body.password)
+})
+
 app.listen(PORT,()=>console.log('Listening on port 8000'))
 

@@ -1,11 +1,10 @@
 import React from 'react'
 import useLogin from '../hook/useLogin'
+import { useNavigate } from 'react-router-dom'
 
-interface LoginProp {
-    setMode : (mode : string)=> void
-}
-export default function Login({setMode} : LoginProp) {
-    
+
+export default function Login() {
+    const navigate = useNavigate()
     const {
         username,
         password,
@@ -23,7 +22,7 @@ export default function Login({setMode} : LoginProp) {
                     <input data-testid='username-input' ref={username} type="text" required className="form-control" style={{ width: '400px', fontSize: '1.2rem' }} />
                     <label className='form-label' style={{ fontSize: '1.5rem' }}>Password</label>
                     <input data-testid="password-input"  ref={password} type="password" required className="form-control" style={{ width: '400px', marginBottom: '20px' }} />
-                    <div onClick={()=>setMode('register')} style={
+                    <div onClick={()=>navigate('/register')} style={
                         {cursor : 'pointer',
                             marginTop : '-20px'
                         

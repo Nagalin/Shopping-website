@@ -1,5 +1,5 @@
 import { Router } from "express";
-import User from "../database/schema/user";
+import User from "../database/schema/User";
 import jwt from 'jsonwebtoken'
 require('dotenv').config()
 const bcrypt = require('bcryptjs')
