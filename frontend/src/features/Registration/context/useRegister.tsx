@@ -2,9 +2,6 @@ import axios from "../../../lib/axios"
 import React, { useRef, useState } from "react"
 
 interface RegisterContext {
-    username : string
-    password : string
-    confirmPassword :string
     name : React.RefObject<HTMLInputElement>
     lastName : React.RefObject<HTMLInputElement>
     email : React.RefObject<HTMLInputElement>
@@ -13,7 +10,8 @@ interface RegisterContext {
     address : React.RefObject<HTMLInputElement>
     error : string
     currentPage : number
-    handleCheckUsername : ()=> void
+    setCurrentPage : React.Dispatch<React.SetStateAction<number>>
+    validateForm : ()=> void
     handleRegister : ()=> void
     setUsername : React.Dispatch<React.SetStateAction<string>>
     setPassword : React.Dispatch<React.SetStateAction<string>>
@@ -43,7 +41,7 @@ export function RegisterContextProvider({children} : RegisterContextProvider) {
     const age = useRef<HTMLInputElement>(null)
     const address = useRef<HTMLInputElement>(null)
 
-    const handleCheckUsername = ()=>{
+    const validateForm = ()=>{
         if(password !== confirmPassword) return setError('Password must matched!!')
 
         axios.post('http://localhost:8000/checkUsername',{
@@ -59,9 +57,15 @@ export function RegisterContextProvider({children} : RegisterContextProvider) {
     }
 
     const handleRegister = ()=>{
-        axios.post('http://localhost:8000/test',{
+        axios.post('http://localhost:8000/register',{
             username : username,
-            password : password
+            password : password,
+            name : name.current?.value,
+            lastName : lastName.current?.value,
+            email : email.current?.value,
+            phoneNumber : phoneNumber.current?.value,
+            age : age.current?.value,
+            address : address.current?.value
         })
 
     }
@@ -69,16 +73,14 @@ export function RegisterContextProvider({children} : RegisterContextProvider) {
     return (
         <RegisterContext.Provider value={{
             setUsername,
-            username,
-            password,
-            confirmPassword,
             name,
             lastName,
+            setCurrentPage,
             email,
             phoneNumber,
             age,
             address,
-            handleCheckUsername,
+            validateForm,
             handleRegister,
             setConfirmPassword,
             setPassword,

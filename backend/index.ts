@@ -40,17 +40,6 @@ app.get('/checkauth', passport.authenticate('jwt', { session: false }),
     }
 );
 
-app.post('/checkUsername',async(req,res)=>{
-    console.log(req.body.username)
-    const oldUser = await User.findOne({username : req.body.username})
-    if(oldUser) return res.status(409).end()
-    res.status(200).end()
-})
-
-app.post('/test',(req,res)=>{
-    console.log(req.body.username)
-    console.log(req.body.password)
-})
 
 app.listen(PORT,()=>console.log('Listening on port 8000'))
 

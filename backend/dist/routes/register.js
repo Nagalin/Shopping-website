@@ -14,35 +14,36 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const User_1 = __importDefault(require("../database/schema/User"));
+const Profile_1 = __importDefault(require("../database/schema/Profile"));
 const bcrypt = require('bcryptjs');
 require('dotenv').config();
 const router = (0, express_1.Router)();
+router.post('/checkUsername', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(req.body.username);
+    const oldUser = yield User_1.default.findOne({ username: req.body.username });
+    if (oldUser)
+        return res.status(409).end();
+    res.status(200).end();
+}));
 router.post('/register', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const username = req.body.username;
     const password = req.body.password;
-    //Check if username is already in used
+    const name = req.body.name;
+    const lastName = req.body.lastName;
+    const email = req.body.email;
+    const phoneNumber = req.body.phoneNumber;
+    const age = req.body.age;
+    const address = req.body.address;
     try {
-        const oldUser = yield User_1.default.findOne({ username: username });
-        if (oldUser)
-            return res.status(409).send({ message: 'Username is already in used' });
-    }
-    catch (err) {
-        console.error(err);
-        res.status(500).send({
-            message: 'error occurs on server side , plesase try again later'
+        //hasing a password and save new account to database
+        const salt = yield bcrypt.genSalt(10);
+        const hashedPassword = yield bcrypt.hash(password, salt);
+        const account = new User_1.default({
+            username: username,
+            password: hashedPassword,
+            role: 'user'
         });
-    }
-    //hasing a password and save new account to database
-    const salt = yield bcrypt.genSalt(10);
-    const hashedPassword = yield bcrypt.hash(password, salt);
-    const account = new User_1.default({
-        username: username,
-        password: hashedPassword,
-        role: 'user'
-    });
-    try {
         yield account.save();
-        res.status(200).send({ message: 'Account created' });
     }
     catch (err) {
         console.error(err);
@@ -50,5 +51,26 @@ router.post('/register', (req, res) => __awaiter(void 0, void 0, void 0, functio
             message: 'error occurs on server side , plesase try again later'
         });
     }
+    //store account profile information
+    try {
+        const userID = yield User_1.default.findOne({ username: username });
+        const profile = new Profile_1.default({
+            name: name,
+            lastName: lastName,
+            email: email,
+            phoneNumber: phoneNumber,
+            age: age,
+            address: address,
+            user: userID
+        });
+        yield profile.save();
+    }
+    catch (err) {
+        console.error(err);
+        res.status(500).send({
+            message: 'error occurs on server side , plesase try again later'
+        });
+    }
+    res.status(200).end();
 }));
 exports.default = router;

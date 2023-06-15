@@ -3,16 +3,11 @@ import { useNavigate } from 'react-router-dom'
 import { useReigsterContext } from '../context/useRegister'
 
 export default function Form1() {
-    
-    useEffect(()=>{
-        console.log(username)
-    })
     const {
-        username,
         setUsername,
         setPassword,
         setConfirmPassword,
-        handleCheckUsername,
+        validateForm,
         error 
     }
         = useReigsterContext()
@@ -41,7 +36,7 @@ export default function Form1() {
                     }}>
                     Already have an account? login here
                 </div>
-                <button onClick={handleCheckUsername} className="btn btn-success mt-3 " style={{ fontSize: '1.3rem' }}>Next</button>
+                <button onClick={validateForm} className="btn btn-success mt-3 " style={{ fontSize: '1.3rem' }}>Next</button>
                 {error && <div data-testid='error' className="alert alert-danger">
                         {error}
                     </div>}
