@@ -42,12 +42,14 @@ export function RegisterContextProvider({children} : RegisterContextProvider) {
     const address = useRef<HTMLInputElement>(null)
 
     const validateForm = ()=>{
+        
         if(password !== confirmPassword) return setError('Password must matched!!')
 
         axios.post('http://localhost:8000/checkUsername',{
             username : username
         }).then(response =>{
             if(response.status === 200) {
+                
                 setCurrentPage(2)
             }
         }).catch(err =>{

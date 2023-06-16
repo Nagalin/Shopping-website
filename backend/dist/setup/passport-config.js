@@ -22,7 +22,6 @@ const option = {
     secretOrKey: process.env.SECRET_KEY
 };
 passport_1.default.use('jwt', new jwtStrategy(option, (payload, done) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(payload.id);
     try {
         const user = yield User_1.default.findById(payload.id);
         if (user)

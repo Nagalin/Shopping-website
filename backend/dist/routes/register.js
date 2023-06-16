@@ -19,7 +19,6 @@ const bcrypt = require('bcryptjs');
 require('dotenv').config();
 const router = (0, express_1.Router)();
 router.post('/checkUsername', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(req.body.username);
     const oldUser = yield User_1.default.findOne({ username: req.body.username });
     if (oldUser)
         return res.status(409).end();

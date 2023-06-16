@@ -6,7 +6,7 @@ require('dotenv').config()
 const router = Router();
 
 router.post('/checkUsername', async (req, res) => {
-  console.log(req.body.username)
+  
   const oldUser = await User.findOne({ username: req.body.username })
   if (oldUser) return res.status(409).end()
   res.status(200).end()

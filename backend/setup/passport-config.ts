@@ -9,7 +9,6 @@ const option = {
     secretOrKey: process.env.SECRET_KEY
 }
 passport.use('jwt',new jwtStrategy(option, async(payload: any, done: any) => {
-    console.log(payload.id)
     try {
         const user = await User.findById(payload.id)
         if(user) return done(null,user)
