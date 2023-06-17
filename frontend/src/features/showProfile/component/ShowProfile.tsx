@@ -12,15 +12,23 @@ interface profile {
 }
 export default function ShowProfile() {
   const profile = useProfile() as profile[]
+  const RealKey = [
+    "name",
+    "last name",
+    "e-mail",
+    "phone number",
+    "age",
+    "address"
+  ]
 
   return (
     <>
-      {profile.map((obj, index) => {
+      {profile.map((obj) => {
         return Object.entries(obj).map(([key, value],i) => (
-          <Row  key={`${index}-${i}`}>
+          <Row  key={key}>
             <Col className='d-flex align-items-center gap-3 justify-content-between'>
               <div className='d-flex align-items-center gap-3'>
-                <div style={{ fontSize: '1.7rem' }}>{key}: </div>
+                <div style={{ fontSize: '1.7rem' }}>{RealKey[i]}: </div>
                 <div style={{ fontSize: '1.3rem' }}>{value}</div>
               </div>
               <img

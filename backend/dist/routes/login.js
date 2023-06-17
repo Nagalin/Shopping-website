@@ -28,7 +28,7 @@ router.post('/login', (req, res) => __awaiter(void 0, void 0, void 0, function* 
         if (account && (yield bcrypt.compare(password, account === null || account === void 0 ? void 0 : account.password))) {
             const payload = { id: account._id, role: account.role };
             const token = jsonwebtoken_1.default.sign(payload, KEY);
-            return res.status(200).send({ token: token });
+            return res.status(200).send({ token: token, role: account.role });
         }
     }
     catch (err) {

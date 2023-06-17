@@ -20,17 +20,17 @@ require('dotenv').config();
 const KEY = process.env.SECRET_KEY;
 router.get('/profile', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const authHeader = req.headers.authorization;
-    console.log(authHeader);
     const token = authHeader === null || authHeader === void 0 ? void 0 : authHeader.split(' ')[1];
     let id;
     jwt.verify(token, KEY, (error, decoded) => {
         if (error) {
             console.error(error);
-            return res.status(500).send({ message: 'Error occurs on server side, please try again later' });
+            return res.status(500).send({
+                message: 'Error occurs on server side, please try again later'
+            });
         }
         id = decoded.id;
     });
-    console.log(id);
     const result = yield Profile_1.default.findOne({ user: id }).select('-__v -_id -user');
     return res.status(200).send([result]);
 }));

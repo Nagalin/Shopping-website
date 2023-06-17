@@ -15,6 +15,7 @@ router.post('/checkUsername', async (req, res) => {
 router.post('/register', async (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
+  const role = req.body.role.toLowerCase()
   const name = req.body.name
   const lastName = req.body.lastName
   const email = req.body.email
@@ -29,13 +30,14 @@ router.post('/register', async (req, res) => {
     const account = new User({
       username: username,
       password: hashedPassword,
-      role: 'user'
+      role: role
     })
     await account.save()
+    
 
   } catch (err) {
     console.error(err)
-    res.status(500).send({
+    return res.status(500).send({
       message: 'error occurs on server side , plesase try again later'
     })
   }
@@ -62,7 +64,7 @@ router.post('/register', async (req, res) => {
 
   }
 
-  res.status(200).end()
+  return res.status(201).end()
 })
 
 

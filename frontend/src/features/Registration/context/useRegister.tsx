@@ -1,5 +1,6 @@
 import axios from "../../../lib/axios"
-import React, { useRef, useState } from "react"
+import React, { FormEvent, useRef, useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 interface RegisterContext {
     name : React.RefObject<HTMLInputElement>
@@ -8,11 +9,12 @@ interface RegisterContext {
     phoneNumber : React.RefObject<HTMLInputElement>
     age : React.RefObject<HTMLInputElement>
     address : React.RefObject<HTMLInputElement>
+    role : React.RefObject<HTMLSelectElement>
     error : string
     currentPage : number
     setCurrentPage : React.Dispatch<React.SetStateAction<number>>
     validateForm : ()=> void
-    handleRegister : ()=> void
+    handleRegister : (e : FormEvent<HTMLFormElement>)=> void
     setUsername : React.Dispatch<React.SetStateAction<string>>
     setPassword : React.Dispatch<React.SetStateAction<string>>
     setConfirmPassword : React.Dispatch<React.SetStateAction<string>>
@@ -36,10 +38,12 @@ export function RegisterContextProvider({children} : RegisterContextProvider) {
     const [confirmPassword,setConfirmPassword] = useState<string>('')
     const name = useRef<HTMLInputElement>(null)
     const lastName = useRef<HTMLInputElement>(null)
+    const role = useRef<HTMLSelectElement>(null)
     const email = useRef<HTMLInputElement>(null)
     const phoneNumber = useRef<HTMLInputElement>(null)
     const age = useRef<HTMLInputElement>(null)
     const address = useRef<HTMLInputElement>(null)
+    const navigate = useNavigate()
 
     const validateForm = ()=>{
         
@@ -49,7 +53,7 @@ export function RegisterContextProvider({children} : RegisterContextProvider) {
             username : username
         }).then(response =>{
             if(response.status === 200) {
-                
+                setError('')
                 setCurrentPage(2)
             }
         }).catch(err =>{
@@ -58,16 +62,27 @@ export function RegisterContextProvider({children} : RegisterContextProvider) {
         })
     }
 
-    const handleRegister = ()=>{
+    const handleRegister = (e : FormEvent<HTMLFormElement>) =>{
+        e.preventDefault()
+       
         axios.post('http://localhost:8000/register',{
             username : username,
             password : password,
             name : name.current?.value,
             lastName : lastName.current?.value,
             email : email.current?.value,
+            role : role.current?.value,
             phoneNumber : phoneNumber.current?.value,
             age : age.current?.value,
             address : address.current?.value
+        }).then(response=>{
+            if(response.status === 201) {
+                alert('Account created!!')
+                navigate('/')
+            }
+        }).catch(err=>{
+            console.error(err)
+            setError(err.data.message)
         })
 
     }
@@ -87,6 +102,7 @@ export function RegisterContextProvider({children} : RegisterContextProvider) {
             setConfirmPassword,
             setPassword,
             error,
+            role,
             currentPage
         }}>
             {children}

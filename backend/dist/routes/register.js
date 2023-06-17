@@ -27,6 +27,7 @@ router.post('/checkUsername', (req, res) => __awaiter(void 0, void 0, void 0, fu
 router.post('/register', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const username = req.body.username;
     const password = req.body.password;
+    const role = req.body.role.toLowerCase();
     const name = req.body.name;
     const lastName = req.body.lastName;
     const email = req.body.email;
@@ -40,13 +41,13 @@ router.post('/register', (req, res) => __awaiter(void 0, void 0, void 0, functio
         const account = new User_1.default({
             username: username,
             password: hashedPassword,
-            role: 'user'
+            role: role
         });
         yield account.save();
     }
     catch (err) {
         console.error(err);
-        res.status(500).send({
+        return res.status(500).send({
             message: 'error occurs on server side , plesase try again later'
         });
     }
@@ -70,6 +71,6 @@ router.post('/register', (req, res) => __awaiter(void 0, void 0, void 0, functio
             message: 'error occurs on server side , plesase try again later'
         });
     }
-    res.status(200).end();
+    return res.status(201).end();
 }));
 exports.default = router;

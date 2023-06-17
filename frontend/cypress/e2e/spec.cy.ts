@@ -17,6 +17,7 @@ describe('E2E test for react', () => {
 
     //assert the url endpoint (should be /homepage)
     cy.url().should('match', /\/homepage$/);
+    cy.get('[data-testid="profile"]').click();
 
     
   })

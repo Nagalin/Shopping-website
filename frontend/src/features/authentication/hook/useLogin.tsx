@@ -12,14 +12,16 @@ export default function useLogin() {
     const handleLogin = (e: FormEvent<HTMLFormElement>): void =>{
         e.preventDefault()
 
-        axios.post('http://localhost:8000/login',{
+        axios.post('/login',{
           username : username.current?.value,
           password : password.current?.value
         }).then(response =>{
           if(response.status === 200) {
-            
             localStorage.setItem('jwtToken',JSON.stringify(response.data.token))
-            navigate('/homepage')
+
+            if(response.data.role === 'Buyer') navigate('/homepage')
+            if(response.data.role === 'Seller') navigate('/my-store')
+            
           }
         }).catch(err =>{
           console.error(err)
