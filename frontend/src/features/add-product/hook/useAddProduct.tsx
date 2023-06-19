@@ -1,39 +1,36 @@
-import React, { useEffect, useRef, useState } from 'react'
-import items from '../../../data/items.json'
+import React, { FormEvent, useRef, useState } from 'react'
+import axios from '../../../lib/axios'
 
-interface NewItem {
-    name : string
-    id : number
-    price : number
-    imgUrl : string
-}
+export default function useAddProduct() {
+    const name = useRef<HTMLInputElement>(null)
+    const price = useRef<HTMLInputElement>(null)
+    const [img,setImg] = useState<File>()
 
-interface AddProductProp {
-    id : number
-    toggle : ()=> void
-}
+    const handleSubmit = (e: FormEvent<HTMLFormElement>)=> {
+        e.preventDefault()
+        console.log(name.current?.value)
+        console.log(price.current?.value)
+        console.log(img)
 
-export default function useAddProduct({id , toggle} : AddProductProp) {
-    const [newItem,setNewItem] = useState<NewItem>({} as NewItem)
-    const nameRef = useRef<HTMLInputElement>(null)
-    const priceRef = useRef<HTMLInputElement>(null)
+        const formData = new FormData();
+       /*  formData.append('name', name.current?.value || '');
+        formData.append('price', price.current?.value || ''); */
+        formData.append('img', img || '');
 
-    useEffect(()=>{
-        const i = items.find(item => item.id === id)
-        if(i)  setNewItem(i)
-    },[])
-
-    const handleSumbit = ()=>{
-        console.log(nameRef.current?.value)
-        console.log(priceRef.current?.value)
-        alert('Your item has been updated')
-        toggle()
+       axios.post("add-product", formData)
+       .then(response=>console.log(response.status))
+          
     }
 
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        setImg(file)
+      };
+
     return {
-        nameRef,
-        priceRef,
-        newItem,
-        handleSumbit
+        name,
+        price,
+        handleSubmit,
+        handleFileChange
     }
 }

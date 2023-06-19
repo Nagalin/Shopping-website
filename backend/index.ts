@@ -6,6 +6,7 @@ import login from './routes/login'
 import passport from "./setup/passport-config";
 import cors from 'cors'
 import profile from './routes/authRoutes/profile'
+import product from './routes/authRoutes/product'
 require('dotenv').config()
 require('./database/database')
 
@@ -25,6 +26,7 @@ app.use(bodyParser.urlencoded({extended : false}))
 app.use(register)
 app.use(login)
 app.use(profile)
+app.use(product)
 
 //an endpoint to ensure that client has logined before navigate to private route
 app.get('/checkauth', passport.authenticate('jwt', { session: false }),
