@@ -10,8 +10,7 @@ const register_1 = __importDefault(require("./routes/register"));
 const login_1 = __importDefault(require("./routes/login"));
 const passport_config_1 = __importDefault(require("./setup/passport-config"));
 const cors_1 = __importDefault(require("cors"));
-const profile_1 = __importDefault(require("./routes/authRoutes/profile"));
-const product_1 = __importDefault(require("./routes/authRoutes/product"));
+const index_1 = __importDefault(require("./routes/authRoutes/index"));
 require('dotenv').config();
 require('./database/database');
 const PORT = process.env.PORT;
@@ -27,8 +26,7 @@ app.use(body_parser_1.default.urlencoded({ extended: false }));
 //routing
 app.use(register_1.default);
 app.use(login_1.default);
-app.use(profile_1.default);
-app.use(product_1.default);
+app.use(index_1.default);
 //an endpoint to ensure that client has logined before navigate to private route
 app.get('/checkauth', passport_config_1.default.authenticate('jwt', { session: false }), (req, res) => {
     res.status(200).end();

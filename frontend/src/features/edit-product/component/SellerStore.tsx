@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { Button, Card} from 'react-bootstrap'
 import formatCurrency from '../../../utilites/formatCurrency'
 import useToggle from '../../../hook/useToggle'
@@ -13,6 +13,7 @@ type SellerStoreProp = {
 
 export default function SellerStoreP({ id, name, price, imgUrl }: SellerStoreProp) {
     const { value, toggle } = useToggle()
+    const [mode,setMode] = useState<string>('')
 
     return (
         <Card>
@@ -30,6 +31,9 @@ export default function SellerStoreP({ id, name, price, imgUrl }: SellerStorePro
                     <div className='text-muted'>{formatCurrency(price)}</div>
                 </Card.Title>
                 <Button role='addToCart' onClick={toggle}>Edit your product</Button>
+                <Button variant='danger' style={{
+                    marginTop : '15px'
+                }}>Delete your product</Button>
 
                 {value &&
                  <Modal value={value} toggle={toggle} id={id} />

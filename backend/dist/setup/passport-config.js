@@ -25,7 +25,7 @@ passport_1.default.use('jwt', new jwtStrategy(option, (payload, done) => __await
     try {
         const user = yield User_1.default.findById(payload.id);
         if (user)
-            return done(null, user);
+            return done(null, user.id);
         return done(null, false);
     }
     catch (err) {

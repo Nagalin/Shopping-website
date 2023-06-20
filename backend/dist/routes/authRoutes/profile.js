@@ -19,6 +19,7 @@ const router = (0, express_1.Router)();
 require('dotenv').config();
 const KEY = process.env.SECRET_KEY;
 router.get('/profile', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(req.user);
     const authHeader = req.headers.authorization;
     const token = authHeader === null || authHeader === void 0 ? void 0 : authHeader.split(' ')[1];
     let id;

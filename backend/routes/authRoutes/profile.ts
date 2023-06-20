@@ -1,13 +1,17 @@
 
 import { Router } from "express";
 import Profile from "../../database/schema/Profile";
+import { isAuthenticated } from "../../middleware/middleware";
 
 const jwt = require('jsonwebtoken')
 const router = Router();
 require('dotenv').config()
 const KEY = process.env.SECRET_KEY;
 
+
 router.get('/profile',async(req,res)=>{
+    console.log(req.user)
+    
     const authHeader = req.headers.authorization
     const token = authHeader?.split(' ')[1]
     let id

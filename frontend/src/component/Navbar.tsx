@@ -1,7 +1,7 @@
 
 import React, {  useRef } from 'react'
 import { Button, Nav, Navbar as NavbarBS } from 'react-bootstrap'
-import { NavLink, Outlet } from 'react-router-dom'
+import { NavLink, Outlet,useNavigate } from 'react-router-dom'
 import useToggle from '../hook/useToggle'
 import Chatbox from '../features/chat/component/Chatbox'
 import { useShoppingCart } from '../context/shoppingCartContext'
@@ -9,12 +9,16 @@ import useClickOutside from '../hook/useClickOutside'
 
 
 export default function Navbar() {
-
-    
+    const navigate = useNavigate()
     const { value, toggle, setValue } = useToggle()
     const buttonRef = useRef<HTMLButtonElement>(null)
     const { getAllItemQuantity, openCart, cartItems } = useShoppingCart()
     useClickOutside({ref : buttonRef , cb :()=>setValue(false) , value : value})
+
+    const logout = ()=> {
+        localStorage.removeItem('jwtToken')
+        navigate('/')
+    }
     
     return (
         <>
@@ -81,7 +85,7 @@ export default function Navbar() {
                         </Button>}
 
 
-                    <Nav.Link style={{ marginRight: '10px' }}>
+                    <Nav.Link style={{ marginRight: '10px' }} onClick={logout}>
                         Logout
                     </Nav.Link>
 

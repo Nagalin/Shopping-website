@@ -21,6 +21,7 @@ const upload = multer({storage : storage})
 router.post('/add-product', upload.single('img'), async(req, res) => {
     const {name,price} = req.body
     const image = req.file?.filename
+    
     const authHeader = req.headers.authorization
     const token = authHeader?.split(' ')[1]
     let id
