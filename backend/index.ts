@@ -22,17 +22,19 @@ app.use(passport.initialize());
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended : false}))
 
-//routing
-app.use(register)
-app.use(login)
-app.use(authRoute)
-
-
 //an endpoint to ensure that client has logined before navigate to private route
 app.get('/checkauth', passport.authenticate('jwt', { session: false }),
     (req, res) =>{
       res.status(200).end()
     }
 );
+
+//routing
+app.use(register)
+app.use(login)
+app.use(authRoute)
+
+
+
 
 app.listen(PORT,()=>console.log('Listening on port 8000'))

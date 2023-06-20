@@ -14,24 +14,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const Profile_1 = __importDefault(require("../../database/schema/Profile"));
-const jwt = require('jsonwebtoken');
 const router = (0, express_1.Router)();
 require('dotenv').config();
-const KEY = process.env.SECRET_KEY;
 router.get('/profile', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(req.user);
-    const authHeader = req.headers.authorization;
-    const token = authHeader === null || authHeader === void 0 ? void 0 : authHeader.split(' ')[1];
-    let id;
-    jwt.verify(token, KEY, (error, decoded) => {
-        if (error) {
-            console.error(error);
-            return res.status(500).send({
-                message: 'Error occurs on server side, please try again later'
-            });
-        }
-        id = decoded.id;
-    });
+    const id = req.user;
     const result = yield Profile_1.default.findOne({ user: id }).select('-__v -_id -user');
     return res.status(200).send([result]);
 }));

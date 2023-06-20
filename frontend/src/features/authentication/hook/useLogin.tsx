@@ -19,8 +19,8 @@ export default function useLogin() {
           if(response.status === 200) {
             localStorage.setItem('jwtToken',JSON.stringify(response.data.token))
 
-            if(response.data.role === 'Buyer') navigate('/homepage')
-            if(response.data.role === 'Seller') navigate('/my-store')
+            if(response.data.role === 'buyer') navigate('/homepage')
+            if(response.data.role === 'seller') navigate('/my-store')
             
           }
         }).catch(err =>{

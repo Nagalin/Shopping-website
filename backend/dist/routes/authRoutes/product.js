@@ -16,10 +16,8 @@ const express_1 = require("express");
 const multer_1 = __importDefault(require("multer"));
 const path_1 = __importDefault(require("path"));
 const Product_1 = __importDefault(require("../../database/schema/Product"));
-const jwt = require('jsonwebtoken');
 const router = (0, express_1.Router)();
 require('dotenv').config();
-const KEY = process.env.SECRET_KEY;
 const storage = multer_1.default.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'public');
@@ -33,18 +31,7 @@ router.post('/add-product', upload.single('img'), (req, res) => __awaiter(void 0
     var _a;
     const { name, price } = req.body;
     const image = (_a = req.file) === null || _a === void 0 ? void 0 : _a.filename;
-    const authHeader = req.headers.authorization;
-    const token = authHeader === null || authHeader === void 0 ? void 0 : authHeader.split(' ')[1];
-    let id;
-    jwt.verify(token, KEY, (error, decoded) => {
-        if (error) {
-            console.error(error);
-            return res.status(500).send({
-                message: 'Error occurs on server side, please try again later'
-            });
-        }
-        id = decoded.id;
-    });
+    const id = req.user;
     const product = new Product_1.default({
         imageName: image,
         name: name,

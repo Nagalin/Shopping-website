@@ -23,12 +23,12 @@ app.use((0, cors_1.default)({
 app.use(passport_config_1.default.initialize());
 app.use(body_parser_1.default.json());
 app.use(body_parser_1.default.urlencoded({ extended: false }));
-//routing
-app.use(register_1.default);
-app.use(login_1.default);
-app.use(index_1.default);
 //an endpoint to ensure that client has logined before navigate to private route
 app.get('/checkauth', passport_config_1.default.authenticate('jwt', { session: false }), (req, res) => {
     res.status(200).end();
 });
+//routing
+app.use(register_1.default);
+app.use(login_1.default);
+app.use(index_1.default);
 app.listen(PORT, () => console.log('Listening on port 8000'));
