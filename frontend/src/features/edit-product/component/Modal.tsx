@@ -1,21 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Modal as BootstrapModal, Button, Form } from 'react-bootstrap';
 import formatCurrency from '../../../utilites/formatCurrency';
-import useAddProduct from '../hook/useAddProduct'
+import useEditProduct from '../hook/useEditProduct'
 
 interface ModalProp {
     value: boolean
+    name : string
     toggle: () => void
-    id: number
+    id: string
+    price : number
 }
 
-export default function Modal({ value, toggle, id }: ModalProp) {
+export default function Modal({ value, toggle, id , price,name }: ModalProp) {
+    useEffect(()=>console.log(price))
    const {
     nameRef,
     priceRef,
     newItem,
     handleSumbit
-   } = useAddProduct({id : id , toggle : toggle})
+   } = useEditProduct({id : id , toggle : toggle})
 
     return (
         <BootstrapModal show={value} onHide={toggle} >
@@ -27,12 +30,12 @@ export default function Modal({ value, toggle, id }: ModalProp) {
                 <Form>
                     <Form.Group className="mb-3" >
                         <Form.Label>Product name</Form.Label>
-                        <Form.Control  ref={nameRef}  placeholder={newItem.name}/>
+                        <Form.Control  ref={nameRef}  placeholder={name}/>
                     </Form.Group>
 
                     <Form.Group className="mb-3" >
                         <Form.Label>Product price</Form.Label>
-                        <Form.Control ref={priceRef} placeholder={formatCurrency(newItem.price)}/>
+                        <Form.Control ref={priceRef} placeholder={formatCurrency(price)}/>
                     </Form.Group>
                 </Form>
             </BootstrapModal.Body>

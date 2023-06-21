@@ -18,6 +18,7 @@ app.use(cors({
     origin: 'http://localhost:3000',
     credentials : true
 }))
+app.use(express.static('public'))
 app.use(passport.initialize());
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended : false}))
@@ -33,8 +34,5 @@ app.get('/checkauth', passport.authenticate('jwt', { session: false }),
 app.use(register)
 app.use(login)
 app.use(authRoute)
-
-
-
 
 app.listen(PORT,()=>console.log('Listening on port 8000'))

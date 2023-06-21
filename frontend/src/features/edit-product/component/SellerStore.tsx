@@ -1,25 +1,27 @@
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 import { Button, Card} from 'react-bootstrap'
 import formatCurrency from '../../../utilites/formatCurrency'
 import useToggle from '../../../hook/useToggle'
 import Modal from './Modal'
+import useFetch from '../hook/useFetch'
 
 type SellerStoreProp = {
-    id: number,
+    _id: string,
     name: string,
     price: number,
-    imgUrl: string
+    imageName: string
 }
 
-export default function SellerStoreP({ id, name, price, imgUrl }: SellerStoreProp) {
+export default function SellerStoreP({ _id, name, price, imageName }: SellerStoreProp) {
     const { value, toggle } = useToggle()
     const [mode,setMode] = useState<string>('')
-
+    
+    
     return (
         <Card>
             <Card.Img
                 variant='top'
-                src={imgUrl}
+                src={`http://localhost:8000/${imageName}`}
                 height='300px'
                 style={{ objectFit: 'cover' }}>
             </Card.Img>
@@ -36,7 +38,7 @@ export default function SellerStoreP({ id, name, price, imgUrl }: SellerStorePro
                 }}>Delete your product</Button>
 
                 {value &&
-                 <Modal value={value} toggle={toggle} id={id} />
+                 <Modal name={name} value={value} toggle={toggle} id={_id} price={price} />
                 }
 
 

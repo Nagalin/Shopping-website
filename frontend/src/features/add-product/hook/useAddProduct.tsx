@@ -13,12 +13,15 @@ export default function useAddProduct() {
         console.log(img)
 
         const formData = new FormData();
-       /*  formData.append('name', name.current?.value || '');
-        formData.append('price', price.current?.value || ''); */
+        formData.append('name', name.current?.value || '');
+        formData.append('price', price.current?.value || '');
         formData.append('img', img || '');
 
        axios.post("add-product", formData)
-       .then(response=>console.log(response.status))
+       .then(response=>{
+        console.log(response.status)
+        alert('Your product have been updated')
+    }).catch(err=>console.log(err))
           
     }
 

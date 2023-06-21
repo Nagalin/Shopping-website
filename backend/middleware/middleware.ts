@@ -8,16 +8,16 @@ export function isAuthenticated(req: Request, res: Response, next: NextFunction)
         return res.status(401).json({ message: 'Unauthorized - Token missing' });
     }
     
-    passport.authenticate('jwt', { session: false }, (err: any, user: any) => {
+    passport.authenticate('jwt', { session: false }, (err: any, id: any) => {
         if (err) {
             console.error(err);
             return res.sendStatus(500);
         }
 
-        if (!user) {
+        if (!id) {
             return res.status(401).json({ message: 'Unauthorized - Invalid token' });
         }
-        req.user = user;
+        req.user = id;
         return next();
     })(req, res, next);
 }
@@ -37,7 +37,6 @@ export function isSeller(req: Request, res: Response, next: NextFunction) {
         if(!id) return res.status(401).json({ message: 'Unauthorized - Invalid token' });
 
         const user = await User.findById(id)
-        console.log(user)
         
         if(user?.role === 'seller') return next()
 

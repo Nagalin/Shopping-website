@@ -3,17 +3,17 @@ import items from '../../../data/items.json'
 
 interface NewItem {
     name : string
-    id : number
+    id : string
     price : number
     imgUrl : string
 }
 
-interface AddProductProp {
-    id : number
+interface EditProductProp {
+    id : string
     toggle : ()=> void
 }
 
-export default function useAddProduct({id , toggle} : AddProductProp) {
+export default function useEditProduct({id , toggle} : EditProductProp) {
     const [newItem,setNewItem] = useState<NewItem>({} as NewItem)
     const nameRef = useRef<HTMLInputElement>(null)
     const priceRef = useRef<HTMLInputElement>(null)

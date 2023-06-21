@@ -20,15 +20,15 @@ function isAuthenticated(req, res, next) {
     if (!token) {
         return res.status(401).json({ message: 'Unauthorized - Token missing' });
     }
-    passport_1.default.authenticate('jwt', { session: false }, (err, user) => {
+    passport_1.default.authenticate('jwt', { session: false }, (err, id) => {
         if (err) {
             console.error(err);
             return res.sendStatus(500);
         }
-        if (!user) {
+        if (!id) {
             return res.status(401).json({ message: 'Unauthorized - Invalid token' });
         }
-        req.user = user;
+        req.user = id;
         return next();
     })(req, res, next);
 }
@@ -46,7 +46,6 @@ function isSeller(req, res, next) {
         if (!id)
             return res.status(401).json({ message: 'Unauthorized - Invalid token' });
         const user = yield User_1.default.findById(id);
-        console.log(user);
         if ((user === null || user === void 0 ? void 0 : user.role) === 'seller')
             return next();
         return res.status(401).json({ message: 'Unauthorized - Invalid role' });

@@ -25,7 +25,7 @@ export default function AddNewProduct() {
                 <Col>
                     <div className="input-group">
                         <div className='input-group-text'>Product price:</div>
-                        <input required ref={price} type="number" className="form-control" placeholder="Enter your product price" />
+                        <input required ref={price}  className="form-control" placeholder="Enter your product price" />
                     </div>
                 </Col>
 

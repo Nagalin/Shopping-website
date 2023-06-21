@@ -1,12 +1,13 @@
-import React, { lazy, Suspense } from 'react'
+import React, { lazy, Suspense, useEffect } from 'react'
 import { Button, Col, Container, Row  } from 'react-bootstrap'
 import items from '../data/items.json'
 import Pagination from '../features/pagination/component/Pagination'
 import usePagination from '../features/pagination/hook/usePagination'
 import { useNavigate } from 'react-router-dom'
 const SellerStore = lazy(() => import('../features/edit-product/component/SellerStore'))
-
+import useFetch from '../features/edit-product/hook/useFetch'
 export default function ShoppingCart() {
+
   const {
     firstIndex,
     lastIndex,
@@ -14,9 +15,11 @@ export default function ShoppingCart() {
     setCurrentPage
   } = usePagination()
 
+  const data = useFetch()
   const navigate = useNavigate()
+  const currentItems = data?.slice(firstIndex,lastIndex)
 
-  const currentItems = items.slice(firstIndex,lastIndex)
+  useEffect(()=>console.log(data))
   
   return (
     
@@ -27,9 +30,9 @@ export default function ShoppingCart() {
       }} />
 
       <Row lg={3} sm={2} xs={1} style={{ marginTop: '20px' }} className='g-4'>
-        {currentItems.map((val) => {
+        {currentItems?.map((val) => {
           return (
-            <Suspense  key={val.id}>
+            <Suspense  key={val._id}>
               <Col><SellerStore {...val} /></Col>
             </Suspense>
           )
@@ -40,9 +43,10 @@ export default function ShoppingCart() {
         changePage={page => setCurrentPage(page)}/>
         </Suspense>
 
-        <Button onClick={()=>navigate('/add-product')} className='btn btn-success'>Add a new product</Button>
-      
-
+        <Button onClick={()=>navigate('/add-product')} className='btn btn-success'>
+          Add a new product
+          </Button>
+    
     </Container>
     
   )

@@ -27,6 +27,10 @@ const storage = multer_1.default.diskStorage({
     }
 });
 const upload = (0, multer_1.default)({ storage: storage });
+router.get('/product', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield Product_1.default.find({ user: req.user }).select('-__v -user');
+    return res.json(result);
+}));
 router.post('/add-product', upload.single('img'), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     const { name, price } = req.body;
