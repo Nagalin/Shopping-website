@@ -31,6 +31,31 @@ router.get('/product', (req, res) => __awaiter(void 0, void 0, void 0, function*
     const result = yield Product_1.default.find({ user: req.user }).select('-__v -user');
     return res.json(result);
 }));
+router.put('/update', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(req.body);
+    const filter = { _id: req.body.id };
+    const update = { name: req.body.newName, price: req.body.newPrice };
+    try {
+        yield Product_1.default.findOneAndUpdate(filter, update);
+    }
+    catch (error) {
+        console.error(error);
+        return res.status(500).send('Error occured on server side, please try again later');
+    }
+    return res.sendStatus(200);
+}));
+router.delete('/delete:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(req.params.id);
+    try {
+        const obj = yield Product_1.default.deleteOne({ _id: req.params.id });
+        console.log(obj);
+    }
+    catch (error) {
+        console.error(error);
+        return res.sendStatus(500);
+    }
+    res.sendStatus(200);
+}));
 router.post('/add-product', upload.single('img'), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     const { name, price } = req.body;
