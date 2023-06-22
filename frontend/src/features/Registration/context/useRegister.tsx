@@ -1,6 +1,7 @@
 import axios from "../../../lib/axios"
 import React, { FormEvent, useRef, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import Swal from 'sweetalert2';
 
 interface RegisterContext {
     name : React.RefObject<HTMLInputElement>
@@ -77,7 +78,11 @@ export function RegisterContextProvider({children} : RegisterContextProvider) {
             address : address.current?.value
         }).then(response=>{
             if(response.status === 201) {
-                alert('Account created!!')
+                Swal.fire(
+                    'Account created!',
+                    'You can now login with your account',
+                    'success'
+                  )
                 navigate('/')
             }
         }).catch(err=>{

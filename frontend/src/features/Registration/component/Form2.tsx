@@ -2,9 +2,6 @@ import React, { useEffect } from 'react'
 import { useReigsterContext } from '../context/useRegister'
 import { useNavigate } from 'react-router-dom'
 
-
-
-
 export default function Register() {
     const navigate = useNavigate()
     const {

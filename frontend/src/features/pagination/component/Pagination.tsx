@@ -14,7 +14,7 @@ export default function Pagination({ itemsPerPage, totalItems,changePage }: Pagi
         pagesNumber.push(i)
     }
 
-    if(pagesNumber.length === 1) return null
+    
 
     return (
         <Container className='mt-4'>

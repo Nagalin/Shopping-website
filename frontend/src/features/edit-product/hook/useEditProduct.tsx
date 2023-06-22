@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react'
-import items from '../../../data/items.json'
-
+import axios from '../../../lib/axios'
+import React, {  useRef, useState } from 'react'
+import Swl from 'sweetalert2'
 interface NewItem {
     name : string
     id : string
@@ -14,26 +14,29 @@ interface EditProductProp {
 }
 
 export default function useEditProduct({id , toggle} : EditProductProp) {
-    const [newItem,setNewItem] = useState<NewItem>({} as NewItem)
+    
     const nameRef = useRef<HTMLInputElement>(null)
     const priceRef = useRef<HTMLInputElement>(null)
 
-    useEffect(()=>{
-        const i = items.find(item => item.id === id)
-        if(i)  setNewItem(i)
-    },[])
-
-    const handleSumbit = ()=>{
-        console.log(nameRef.current?.value)
-        console.log(priceRef.current?.value)
-        alert('Your item has been updated')
-        toggle()
+    const handleEdit = ()=>{
+        axios.put('/update',{
+            id : id,
+            newName : nameRef.current?.value,
+            newPrice : priceRef.current?.value
+        })
+        .then(response=>{
+            console.log(response.status)
+            Swl.fire('Nice job','Your product have been updated','success')
+            .then(()=> window.location.reload())
+           
+        }).catch(err=>console.error(err))
     }
+
+    
 
     return {
         nameRef,
         priceRef,
-        newItem,
-        handleSumbit
+        handleEdit
     }
 }

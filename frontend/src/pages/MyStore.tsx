@@ -1,11 +1,11 @@
-import React, { lazy, Suspense, useEffect } from 'react'
+import React, { lazy, Suspense } from 'react'
 import { Button, Col, Container, Row  } from 'react-bootstrap'
-import items from '../data/items.json'
 import Pagination from '../features/pagination/component/Pagination'
 import usePagination from '../features/pagination/hook/usePagination'
 import { useNavigate } from 'react-router-dom'
 const SellerStore = lazy(() => import('../features/edit-product/component/SellerStore'))
-import useFetch from '../features/edit-product/hook/useFetch'
+import useFetch from '../hook/useFetch'
+
 export default function ShoppingCart() {
 
   const {
@@ -19,8 +19,6 @@ export default function ShoppingCart() {
   const navigate = useNavigate()
   const currentItems = data?.slice(firstIndex,lastIndex)
 
-  useEffect(()=>console.log(data))
-  
   return (
     
     <Container>
@@ -39,7 +37,7 @@ export default function ShoppingCart() {
         })}
       </Row>
       <Suspense>
-        <Pagination itemsPerPage={itemsPerPage} totalItems={items.length} 
+        <Pagination itemsPerPage={itemsPerPage} totalItems={data?.length!} 
         changePage={page => setCurrentPage(page)}/>
         </Suspense>
 

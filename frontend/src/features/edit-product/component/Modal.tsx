@@ -16,8 +16,7 @@ export default function Modal({ value, toggle, id , price,name }: ModalProp) {
    const {
     nameRef,
     priceRef,
-    newItem,
-    handleSumbit
+    handleEdit,
    } = useEditProduct({id : id , toggle : toggle})
 
     return (
@@ -45,7 +44,7 @@ export default function Modal({ value, toggle, id , price,name }: ModalProp) {
 
                 }}>
                     <Button variant="secondary" onClick={toggle}>Close</Button>
-                    <Button variant="primary" onClick={handleSumbit}>Save changes</Button>
+                    <Button variant="primary" onClick={handleEdit}>Save changes</Button>
                 </div>
 
             </BootstrapModal.Footer>
