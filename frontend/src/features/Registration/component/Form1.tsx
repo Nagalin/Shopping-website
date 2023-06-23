@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useReigsterContext } from '../context/useRegister'
 
@@ -8,7 +8,7 @@ export default function Form1() {
         setPassword,
         setConfirmPassword,
         validateForm,
-        error 
+        error
     }
         = useReigsterContext()
 
@@ -17,17 +17,31 @@ export default function Form1() {
     return (
 
 
-        <div className='d-flex  justify-content-center align-items-center' style={{ height: '100vh' }}>
+        <div className='d-flex  justify-content-center align-items-center'
+            style={{ height: '100vh' }}>
 
 
-            <div className="d-flex gap-2 flex-column" style={{ padding: '20px', borderRadius: '10px', backgroundColor: '#F7F7F7' }}>
+            <div className="d-flex gap-2 flex-column"
+                style={{ padding: '20px', borderRadius: '10px', backgroundColor: '#F7F7F7' }}>
                 <div className="display-4" >Register</div>
-                <label className='form-label' style={{ fontSize: '1.5rem' }}>Username</label>
-                <input onChange={(e)=>setUsername(e.target.value)} data-testid='username-input' type="text" required className="form-control" style={{ width: '400px', fontSize: '1.2rem' }} />
-                <label className='form-label' style={{ fontSize: '1.5rem' }}>Password</label>
-                <input onChange={(e)=>setPassword(e.target.value)} data-testid="password-input" type="password" required className="form-control" style={{ width: '400px', marginBottom: '20px' }} />
-                <label className='form-label' style={{ fontSize: '1.5rem' }}>Confirm Password</label>
-                <input  onChange={(e)=>setConfirmPassword(e.target.value)} data-testid="password-input" type="password" required className="form-control" style={{ width: '400px', marginBottom: '20px' }} />
+                <label className='form-label' style={{ fontSize: '1.5rem' }}>
+                    Username
+                </label>
+                <input onChange={(e) => setUsername(e.target.value)}
+                    data-testid='username-input' type="text" required
+                    className="form-control" style={{ width: '400px', fontSize: '1.2rem' }} />
+                <label className='form-label' style={{ fontSize: '1.5rem' }}>
+                    Password
+                </label>
+                <input onChange={(e) => setPassword(e.target.value)}
+                    data-testid="password-input" type="password" required
+                    className="form-control" style={{ width: '400px', marginBottom: '20px' }} />
+                <label className='form-label' style={{ fontSize: '1.5rem' }}>
+                    Confirm Password
+                </label>
+                <input onChange={(e) => setConfirmPassword(e.target.value)}
+                    data-testid="password-input" type="password" required
+                    className="form-control" style={{ width: '400px', marginBottom: '20px' }} />
                 <div onClick={() => navigate('/')} style={
                     {
                         cursor: 'pointer',
@@ -36,10 +50,13 @@ export default function Form1() {
                     }}>
                     Already have an account? login here
                 </div>
-                <button onClick={validateForm} className="btn btn-success mt-3 " style={{ fontSize: '1.3rem' }}>Next</button>
+                <button onClick={validateForm} className="btn btn-success mt-3 "
+                    style={{ fontSize: '1.3rem' }}>
+                    Next
+                </button>
                 {error && <div data-testid='error' className="alert alert-danger">
-                        {error}
-                    </div>}
+                    {error}
+                </div>}
 
             </div>
 

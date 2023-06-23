@@ -11,7 +11,6 @@ interface Data {
   name : string
   price : number
   imageName : string
-  
 }
 
 export default function ShoppingCart() {
@@ -30,7 +29,8 @@ export default function ShoppingCart() {
   return (
     
     <Container>
-      <input type="text" className="form-control mt-4" placeholder='Search for items' style={{
+      <input type="text" className="form-control mt-4" 
+      placeholder='Search for items' style={{
         maxWidth: '800px',
         margin: '0 auto'
       }} />

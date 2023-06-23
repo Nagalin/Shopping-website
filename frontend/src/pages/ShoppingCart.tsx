@@ -1,4 +1,4 @@
-import React, {lazy, Suspense,useEffect } from 'react'
+import React, {lazy, Suspense} from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import Pagination from '../features/pagination/component/Pagination'
 import usePagination from '../features/pagination/hook/usePagination'
@@ -31,7 +31,8 @@ export default function ShoppingCart() {
   return (
     
     <Container>
-      <input type="text" className="form-control mt-4" placeholder='Search for items' style={{
+      <input type="text" className="form-control mt-4" placeholder='Search for items' 
+      style={{
         maxWidth: '800px',
         margin: '0 auto'
       }} />

@@ -11,7 +11,7 @@ type StoreItemsProps = {
 }
 
 export default function StoreItems({ _id, name, price, imageName }: StoreItemsProps) {
-    const {getItemQuantity,
+    const { getItemQuantity,
         increaseQuantity,
         decreaseQuantity,
         removeFromCart
@@ -33,20 +33,30 @@ export default function StoreItems({ _id, name, price, imageName }: StoreItemsPr
                 </Card.Title>
                 {quantiy === 0 ? (
                     <>
-                        <Button role='addToCart' onClick={()=>increaseQuantity(_id)}>+ Add To Cart</Button>
+                        <Button role='addToCart' onClick={() => increaseQuantity(_id)}>
+                            + Add To Cart
+                        </Button>
 
-                        <Button role='chat' className='btn-success mt-3'>Chat with seller</Button>
+                        <Button role='chat' className='btn-success mt-3'>
+                            Chat with seller
+                        </Button>
                     </>
                 ) : (
                     <div className='d-flex flex-column align-items-center gap-2'>
                         <div className='d-flex align-items-center gap-2'>
-                            <Button role='decrease' onClick={()=>decreaseQuantity(_id)}>-</Button>
+                            <Button role='decrease' onClick={() => decreaseQuantity(_id)}>
+                                -
+                            </Button>
                             <span>{quantiy} in cart</span>
-                            <Button role='increase' onClick={()=>increaseQuantity(_id)}>+</Button>
+                            <Button role='increase' onClick={() => increaseQuantity(_id)}>
+                                +
+                            </Button>
                         </div>
 
                         <div>
-                            <Button variant="danger" onClick={()=>removeFromCart(_id)}>Remove from cart</Button>
+                            <Button variant="danger" onClick={() => removeFromCart(_id)}>
+                                Remove from cart
+                            </Button>
                         </div>
                     </div>
                 )}

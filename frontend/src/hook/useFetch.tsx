@@ -13,7 +13,8 @@ export default function useFetch({url} : UseFetchProp )  {
         .then(response =>{ 
             console.log(response.data)  
             setData(response.data)
-        }).catch(err=>console.log(err))
+        })
+        .catch(err=>console.log(err))
         .finally(()=> setIsLoading(false))
     },[])
 

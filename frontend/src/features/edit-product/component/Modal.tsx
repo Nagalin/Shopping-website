@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Modal as BootstrapModal, Button, Form } from 'react-bootstrap';
 import formatCurrency from '../../../utilites/formatCurrency';
 import useEditProduct from '../hook/useEditProduct'

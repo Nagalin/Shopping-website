@@ -8,10 +8,7 @@ export default function useAddProduct() {
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>)=> {
         e.preventDefault()
-        console.log(name.current?.value)
-        console.log(price.current?.value)
-        console.log(img)
-
+        
         const formData = new FormData();
         formData.append('name', name.current?.value || '');
         formData.append('price', price.current?.value || '');
