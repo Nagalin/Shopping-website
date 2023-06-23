@@ -12,7 +12,7 @@ interface ModalProp {
 }
 
 export default function Modal({ value, toggle, id , price,name }: ModalProp) {
-    useEffect(()=>console.log(price))
+    
    const {
     nameRef,
     priceRef,

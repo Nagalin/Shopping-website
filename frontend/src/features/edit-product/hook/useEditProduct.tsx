@@ -1,5 +1,5 @@
 import axios from '../../../lib/axios'
-import React, {  useRef, useState } from 'react'
+import React, {  useRef } from 'react'
 import Swl from 'sweetalert2'
 interface NewItem {
     name : string
@@ -26,13 +26,11 @@ export default function useEditProduct({id , toggle} : EditProductProp) {
         })
         .then(response=>{
             console.log(response.status)
-            Swl.fire('Nice job','Your product have been updated','success')
+            Swl.fire('Your product have been updated','','success')
             .then(()=> window.location.reload())
            
         }).catch(err=>console.error(err))
     }
-
-    
 
     return {
         nameRef,

@@ -4,24 +4,24 @@ import { useShoppingCart } from '../context/shoppingCartContext'
 import formatCurrency from '../utilites/formatCurrency'
 
 type StoreItemsProps = {
-    id: number,
+    _id: number,
     name: string,
     price: number,
-    imgUrl: string
+    imageName: string
 }
 
-export default function StoreItems({ id, name, price, imgUrl }: StoreItemsProps) {
+export default function StoreItems({ _id, name, price, imageName }: StoreItemsProps) {
     const {getItemQuantity,
         increaseQuantity,
         decreaseQuantity,
         removeFromCart
     } = useShoppingCart()
-    const quantiy = getItemQuantity(id)
+    const quantiy = getItemQuantity(_id)
     return (
         <Card>
             <Card.Img
                 variant='top'
-                src={imgUrl}
+                src={`http://localhost:8000/${imageName}`}
                 height='300px'
                 style={{ objectFit: 'cover' }}>
             </Card.Img>
@@ -33,20 +33,20 @@ export default function StoreItems({ id, name, price, imgUrl }: StoreItemsProps)
                 </Card.Title>
                 {quantiy === 0 ? (
                     <>
-                        <Button role='addToCart' onClick={()=>increaseQuantity(id)}>+ Add To Cart</Button>
+                        <Button role='addToCart' onClick={()=>increaseQuantity(_id)}>+ Add To Cart</Button>
 
                         <Button role='chat' className='btn-success mt-3'>Chat with seller</Button>
                     </>
                 ) : (
                     <div className='d-flex flex-column align-items-center gap-2'>
                         <div className='d-flex align-items-center gap-2'>
-                            <Button role='decrease' onClick={()=>decreaseQuantity(id)}>-</Button>
+                            <Button role='decrease' onClick={()=>decreaseQuantity(_id)}>-</Button>
                             <span>{quantiy} in cart</span>
-                            <Button role='increase' onClick={()=>increaseQuantity(id)}>+</Button>
+                            <Button role='increase' onClick={()=>increaseQuantity(_id)}>+</Button>
                         </div>
 
                         <div>
-                            <Button variant="danger" onClick={()=>removeFromCart(id)}>Remove from cart</Button>
+                            <Button variant="danger" onClick={()=>removeFromCart(_id)}>Remove from cart</Button>
                         </div>
                     </div>
                 )}

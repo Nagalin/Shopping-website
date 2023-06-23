@@ -16,8 +16,8 @@ const express_1 = require("express");
 const multer_1 = __importDefault(require("multer"));
 const path_1 = __importDefault(require("path"));
 const Product_1 = __importDefault(require("../../database/schema/Product"));
-const router = (0, express_1.Router)();
 require('dotenv').config();
+const router = (0, express_1.Router)();
 const storage = multer_1.default.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'public');
@@ -28,11 +28,16 @@ const storage = multer_1.default.diskStorage({
 });
 const upload = (0, multer_1.default)({ storage: storage });
 router.get('/product', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield Product_1.default.find({ user: req.user }).select('-__v -user');
-    return res.json(result);
+    try {
+        const result = yield Product_1.default.find({ user: req.user }).select('-__v -user');
+        return res.json(result);
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).send('Error occurs on server side, please try again later');
+    }
 }));
 router.put('/update', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(req.body);
     const filter = { _id: req.body.id };
     const update = { name: req.body.newName, price: req.body.newPrice };
     try {
@@ -45,10 +50,8 @@ router.put('/update', (req, res) => __awaiter(void 0, void 0, void 0, function* 
     return res.sendStatus(200);
 }));
 router.delete('/delete:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(req.params.id);
     try {
-        const obj = yield Product_1.default.deleteOne({ _id: req.params.id });
-        console.log(obj);
+        yield Product_1.default.deleteOne({ _id: req.params.id });
     }
     catch (error) {
         console.error(error);
@@ -75,5 +78,15 @@ router.post('/add-product', upload.single('img'), (req, res) => __awaiter(void 0
         return res.sendStatus(500);
     }
     res.sendStatus(200);
+}));
+router.get('/store', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const store = yield Product_1.default.find({});
+        return res.json(store);
+    }
+    catch (err) {
+        console.error(err);
+        res.sendStatus(500);
+    }
 }));
 exports.default = router;

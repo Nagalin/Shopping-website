@@ -6,6 +6,14 @@ import { useNavigate } from 'react-router-dom'
 const SellerStore = lazy(() => import('../features/edit-product/component/SellerStore'))
 import useFetch from '../hook/useFetch'
 
+interface Data {
+  _id : string
+  name : string
+  price : number
+  imageName : string
+  
+}
+
 export default function ShoppingCart() {
 
   const {
@@ -15,7 +23,7 @@ export default function ShoppingCart() {
     setCurrentPage
   } = usePagination()
 
-  const data = useFetch()
+  const data  = useFetch({url : '/product'} ) as Data[]
   const navigate = useNavigate()
   const currentItems = data?.slice(firstIndex,lastIndex)
 

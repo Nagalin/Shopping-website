@@ -1,9 +1,16 @@
-import React, { useEffect,lazy, Suspense } from 'react'
+import React, {lazy, Suspense,useEffect } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
-import items from '../data/items.json'
 import Pagination from '../features/pagination/component/Pagination'
 import usePagination from '../features/pagination/hook/usePagination'
+import useFetch from '../hook/useFetch'
 const StoreItems = lazy(() => import('../component/StoreItems'))
+
+interface Items {
+    _id : number;
+    name: string;
+    price:number ;
+    imageName : string
+}
 
 export default function ShoppingCart() {
   const {
@@ -12,6 +19,12 @@ export default function ShoppingCart() {
     itemsPerPage,
     setCurrentPage
   } = usePagination()
+
+  const items = useFetch({url : '/store'}) as Items[]
+
+  if(items == null) return 
+
+  
 
   const currentItems = items.slice(firstIndex,lastIndex)
   
@@ -26,7 +39,7 @@ export default function ShoppingCart() {
       <Row lg={3} sm={2} xs={1} style={{ marginTop: '20px' }} className='g-4'>
         {currentItems.map((val) => {
           return (
-            <Suspense  key={val.id}>
+            <Suspense  key={val._id}>
               <Col><StoreItems {...val} /></Col>
             </Suspense>
           )

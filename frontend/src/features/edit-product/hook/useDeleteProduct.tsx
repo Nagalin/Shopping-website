@@ -17,7 +17,7 @@ export default function useDeleteProduct() {
           try {
             const response = await axios.delete(`/delete${id}`);
             console.log(response.status);
-            await Swal.fire('Nice job', 'Your product has been deleted', 'success');
+            await Swal.fire('Your product has been deleted', '', 'success');
             window.location.reload();
           } catch (err) {
             console.error(err);

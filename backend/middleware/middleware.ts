@@ -28,7 +28,7 @@ export function isSeller(req: Request, res: Response, next: NextFunction) {
         return res.status(401).json({ message: 'Unauthorized - Token missing' });
     }
 
-    passport.authenticate('jwt',{session : false},async(err : any,id : any)=>{
+    passport.authenticate('jwt',{session : false},async(err : Error,id : string)=>{
         if(err) {
             console.log(err)
             return res.sendStatus(500)
