@@ -1,19 +1,13 @@
 import axios from '../../../lib/axios'
 import React, {  useRef } from 'react'
 import Swl from 'sweetalert2'
-interface NewItem {
-    name : string
-    id : string
-    price : number
-    imgUrl : string
-}
 
 interface EditProductProp {
     id : string
-    toggle : ()=> void
+   
 }
 
-export default function useEditProduct({id , toggle} : EditProductProp) {
+export default function useEditProduct({id } : EditProductProp) {
     
     const nameRef = useRef<HTMLInputElement>(null)
     const priceRef = useRef<HTMLInputElement>(null)

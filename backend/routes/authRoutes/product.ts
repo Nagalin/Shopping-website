@@ -28,18 +28,27 @@ router.get('/product', async (req, res) => {
 })
 
 router.put('/update', async (req, res) => {
-    const filter = { _id : req.body.id }
-    const update = { name: req.body.newName, price: req.body.newPrice }
+    const filter: { _id: string } = { _id: req.body.id };
+    const update: { name?: string, price?: number } = {};
+
+    if (req.body.newName) {
+        update.name = req.body.newName;
+    }
+
+    if (req.body.newPrice) {
+        update.price = req.body.newPrice;
+    }
 
     try {
-        await Product.findOneAndUpdate(filter, update)
-
+        await Product.findOneAndUpdate(filter, update);
     } catch (error) {
-        console.error(error)
-        return res.status(500).send('Error occured on server side, please try again later')
+        console.error(error);
+        return res.status(500).send('An error occurred on the server side. Please try again later.');
     }
-    return res.sendStatus(200)
-})
+
+    return res.sendStatus(200);
+});
+
 
 router.delete('/delete:id', async (req, res) => {
     try {

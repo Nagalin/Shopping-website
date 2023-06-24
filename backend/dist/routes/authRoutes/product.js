@@ -39,13 +39,19 @@ router.get('/product', (req, res) => __awaiter(void 0, void 0, void 0, function*
 }));
 router.put('/update', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const filter = { _id: req.body.id };
-    const update = { name: req.body.newName, price: req.body.newPrice };
+    const update = {};
+    if (req.body.newName) {
+        update.name = req.body.newName;
+    }
+    if (req.body.newPrice) {
+        update.price = req.body.newPrice;
+    }
     try {
         yield Product_1.default.findOneAndUpdate(filter, update);
     }
     catch (error) {
         console.error(error);
-        return res.status(500).send('Error occured on server side, please try again later');
+        return res.status(500).send('An error occurred on the server side. Please try again later.');
     }
     return res.sendStatus(200);
 }));
