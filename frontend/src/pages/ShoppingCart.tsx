@@ -6,7 +6,7 @@ import useFetch from '../hook/useFetch'
 const StoreItems = lazy(() => import('../component/StoreItems'))
 
 interface Items {
-    _id : number;
+    _id : string;
     name: string;
     price:number ;
     imageName : string
@@ -23,8 +23,6 @@ export default function ShoppingCart() {
   const items = useFetch({url : '/store'}) as Items[]
 
   if(items == null) return 
-
-  
 
   const currentItems = items.slice(firstIndex,lastIndex)
   

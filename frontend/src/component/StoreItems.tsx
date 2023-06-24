@@ -4,7 +4,7 @@ import { useShoppingCart } from '../context/shoppingCartContext'
 import formatCurrency from '../utilites/formatCurrency'
 
 type StoreItemsProps = {
-    _id: number,
+    _id: string,
     name: string,
     price: number,
     imageName: string
@@ -33,7 +33,7 @@ export default function StoreItems({ _id, name, price, imageName }: StoreItemsPr
                 </Card.Title>
                 {quantiy === 0 ? (
                     <>
-                        <Button role='addToCart' onClick={() => increaseQuantity(_id)}>
+                        <Button role='addToCart' onClick={() => increaseQuantity(_id,price,name,imageName)}>
                             + Add To Cart
                         </Button>
 
@@ -48,7 +48,7 @@ export default function StoreItems({ _id, name, price, imageName }: StoreItemsPr
                                 -
                             </Button>
                             <span>{quantiy} in cart</span>
-                            <Button role='increase' onClick={() => increaseQuantity(_id)}>
+                            <Button role='increase' onClick={() =>  increaseQuantity(_id,price,name,imageName)}>
                                 +
                             </Button>
                         </div>

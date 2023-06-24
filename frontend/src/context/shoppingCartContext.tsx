@@ -3,11 +3,11 @@ import SlideCanvas from '../component/SlideCanvas'
 import useLocalStrorage from '../hook/useLocalStorage'
 
 interface ShoppingCartContext {
-    getItemQuantity: (id: number) => number
+    getItemQuantity: (id: string) => number
     getAllItemQuantity: () => number
-    increaseQuantity: (id: number) => void
-    decreaseQuantity: (id: number) => void
-    removeFromCart: (id: number) => void
+    increaseQuantity: (id: string,price : number,name : string,imageName : string) => void
+    decreaseQuantity: (id: string) => void
+    removeFromCart: (id: string) => void
     openCart: () => void
     closeCart: () => void
     cartItems: CartItems[]
@@ -18,8 +18,11 @@ interface ShoppingCartProviderProp {
 }
 
 interface CartItems {
-    id: number,
+    id: string
     quantity: number
+    price : number
+    name : string
+    imageName : string
 }
 const ShoppingCartContext = React.createContext({} as ShoppingCartContext)
 
@@ -31,7 +34,7 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProp) {
     const [cartItems, setCartItems] = useLocalStrorage<CartItems[]>("shopping-cart",[])
     const [isOpen, setIsOpen] = React.useState<boolean>(false)
 
-    function getItemQuantity(id: number) {
+    function getItemQuantity(id: string) {
         return cartItems.find(item => item.id === id)?.quantity || 0
     }
 
@@ -41,10 +44,10 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProp) {
             , 0)
     }
 
-    function increaseQuantity(id: number) {
+    function increaseQuantity(id: string,price : number,name : string,imgName : string) {
         setCartItems(currItems => {
             if (currItems.find(item => item.id === id) == null) {
-                return [...currItems, { id: id, quantity: 1 }]
+                return [...currItems, { id: id, quantity: 1, price : price, name : name,imageName : imgName,}]
             } else {
                 return currItems.map(item => {
                     if (item.id === id) {
@@ -57,7 +60,7 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProp) {
         })
     }
 
-    function decreaseQuantity(id: number) {
+    function decreaseQuantity(id: string) {
         setCartItems(currItems =>{
             if(currItems.find(i => i.id === id)?.quantity === 1) {
                 return currItems.filter(item =>item.id !== id)
@@ -72,7 +75,7 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProp) {
         })
     }
 
-    function removeFromCart(id: number) {
+    function removeFromCart(id: string) {
         setCartItems(currItems => {
             return currItems.filter(item => item.id !== id)
         })

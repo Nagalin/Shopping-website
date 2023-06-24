@@ -1,23 +1,22 @@
 import React from 'react'
 import { Button, Stack } from 'react-bootstrap'
-import data from '../data/items.json'
 import formatCurrency from '../utilites/formatCurrency'
 import { useShoppingCart } from '../context/shoppingCartContext'
 
 interface WishListProps {
-    id: number,
+    id: string,
     quantity: number
 }
 
 export default function WishList({ id, quantity }: WishListProps) {
-    const {removeFromCart} = useShoppingCart()
-    const item = data.find(val => val.id === id)
-    if (item == null) return null
-
+    const {removeFromCart,cartItems} = useShoppingCart()
+    const item = cartItems.find(i =>i.id === id) 
+    if(item == null) return
+    
     return (
         <Stack role='wrapper' direction='horizontal' gap={2} 
         className='d-flex align-items-center'>
-            <img src={item?.imgUrl} style=
+            <img src={`http://localhost:8000/${item.imageName}`} style=
                 {{
                     width: '125px', height: '75px',
                     objectFit: 'cover',
