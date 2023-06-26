@@ -5,12 +5,12 @@ import { useShoppingCart } from '../context/shoppingCartContext'
 
 interface WishListProps {
     id: string,
-    quantity: number
 }
 
-export default function WishList({ id, quantity }: WishListProps) {
+export default function WishList({ id }: WishListProps) {
     const {removeFromCart,cartItems} = useShoppingCart()
     const item = cartItems.find(i =>i.id === id) 
+    
     if(item == null) return
     
     return (
@@ -29,7 +29,7 @@ export default function WishList({ id, quantity }: WishListProps) {
                     <div>{item.name}{"  "}
 
                     </div>
-                    <div className='text-muted' style={{ fontSize: '.85rem' }}>x{quantity}
+                    <div className='text-muted' style={{ fontSize: '.85rem' }}>x{item.quantity}
                     </div>
                 </div>
 
@@ -38,7 +38,7 @@ export default function WishList({ id, quantity }: WishListProps) {
             </div>
 
             <div className="ms-auto">
-                {formatCurrency(item.price * quantity)}
+                {formatCurrency(item.price * item.quantity)}
             </div>
 
             <Button onClick={()=>removeFromCart(id)} variant='outline-danger'>

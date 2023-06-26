@@ -1,11 +1,11 @@
-import React, { lazy, Suspense } from 'react'
+import React, { lazy, Suspense, useEffect } from 'react'
 import { Button, Col, Container, Row  } from 'react-bootstrap'
 import Pagination from '../features/pagination/component/Pagination'
 import usePagination from '../features/pagination/hook/usePagination'
 import { useNavigate } from 'react-router-dom'
 const SellerStore = lazy(() => import('../features/edit-product/component/SellerStore'))
 import useFetch from '../hook/useFetch'
-
+import {io} from 'socket.io-client'
 interface Data {
   _id : string
   name : string
@@ -14,6 +14,16 @@ interface Data {
 }
 
 export default function ShoppingCart() {
+
+  useEffect(()=>{
+    const socket = io('http://localhost:8000')
+
+    return(()=>{
+      socket.disconnect()
+    })
+
+    socket.emit('test',('sting'))
+  },[])
 
   const {
     firstIndex,
