@@ -23,8 +23,5 @@ npm run dev
 #### open other terminal
 cd Shopping-website/frontend
 npm i
-
-//to run rimraf and convert TypeScript to JavaScript
 npm run cleanup
-
 npm run dev
