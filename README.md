@@ -15,13 +15,13 @@ To run this project, you need to set up your own environment variables. Here's h
      DATABASE = your MongoDB URL
 
 ## installation
-git clone https://github.com/Nagalin/Shopping-website.git
-cd Shopping-website/frontend
-npm i
-npm run dev
+git clone https://github.com/Nagalin/Shopping-website.git <br />
+cd Shopping-website/frontend <br />
+npm i <br />
+npm run dev <br />
 
 #### open other terminal
-cd Shopping-website/frontend
-npm i
-npm run cleanup
-npm run dev
+cd Shopping-website/frontend <br />
+npm i <br />
+npm run cleanup <br />
+npm run dev <br />
