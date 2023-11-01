@@ -10,9 +10,9 @@ React, Express , MongoDB , Node.js
 To run this project, you need to set up your own environment variables. Here's how: 
 1. Create a new file named `.env` in the backend directory . 
 2.  Open the `.env` file and add the following variables:
-     PORT = 8000
-     SECRET_KEY = your secret key
-     DATABASE = your MongoDB URL
+     PORT = 8000 <br />
+     SECRET_KEY = your secret key <br />
+     DATABASE = your MongoDB URL <br />
 
 ## installation
 git clone https://github.com/Nagalin/Shopping-website.git <br />
