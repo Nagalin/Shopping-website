@@ -24,7 +24,7 @@ npm run dev
 cd Shopping-website/frontend
 npm i
 
-#to run rimraf and convert TypeScript to JavaScript
+//to run rimraf and convert TypeScript to JavaScript
 npm run cleanup
 
 npm run dev
