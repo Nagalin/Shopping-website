@@ -17,12 +17,12 @@ export default function ShoppingCart() {
 
   useEffect(()=>{
     const socket = io('http://localhost:8000')
-
+    
     return(()=>{
       socket.disconnect()
     })
 
-    socket.emit('test',('sting'))
+    
   },[])
 
   const {

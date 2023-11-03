@@ -7,11 +7,12 @@ const router = Router()
 
 router.use(isAuthenticated)
 router.use(profile)
+router.use(product)
 
 router.use(isSeller)
 router.get('/isSeller',(req,res)=>{
     res.sendStatus(200)
 })
-router.use(product)
+
 
 export default router

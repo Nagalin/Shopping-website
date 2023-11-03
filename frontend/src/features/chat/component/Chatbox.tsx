@@ -1,41 +1,32 @@
 import React from 'react';
-import { ListGroup } from 'react-bootstrap';
-import useChat from '../hook/useChat';
+import { Container, Stack, Form, Button } from 'react-bootstrap';
 
-interface ChatMessage {
-  name: string;
-  message: string;
-}
-
-export default function ChatBox() {
-  const chat= useChat() as ChatMessage[]
-
-  return (
-    <div style={{ maxHeight: '300px', overflowY: 'scroll', }}>
-
-      <ListGroup>
-        {chat.map((val,index)=>{
-          return (
-            
-              <ListGroup.Item key={index} >
-                <div>
-                  <div style={{ fontSize: '1.4rem' }}>{val.name}</div>
-                  <span style={
-                    {
-                      display: 'block',
-                      overflow: 'hidden',
-                      whiteSpace: 'nowrap',
-                      textOverflow: 'ellipsis',
-                      maxWidth: '100px'
-                    }}>
-                    {val.message}
-                  </span>
+export default function Chatbox() {
+    return (
+        <Container className='bg-light'>
+            <Stack>
+                <div className="chat-header">Chat App</div>
+            </Stack>
+            <Stack className="chat-messages">
+                <div
+                    className="message"
+                    style={{ alignSelf: 'flex-end', backgroundColor: 'lightblue' }}
+                >
+                    Hello
                 </div>
-              </ListGroup.Item>
-          )
-        })}
-      </ListGroup>
-    </div>
-  )
-  
+                <div
+                    className="message"
+                    style={{ alignSelf: 'flex-start', backgroundColor: 'lightgray' }}
+                >
+                    What's up, man?
+                </div>
+            </Stack>
+            <Stack>
+                <Form>
+                    <Form.Control type="text" placeholder="Type your message..." />
+                    <Button variant="primary" type="submit">Send</Button>
+                </Form>
+            </Stack>
+        </Container>
+    );
 }

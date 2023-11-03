@@ -3,9 +3,6 @@ import react ,{useState,useEffect} from 'react'
 import axios from '../../../lib/axios'
 
 const isSeller = ()=> {
-   
-    
-
     const [permision,setPermission] = useState<boolean>(false)
     const [loading,setLoading] = useState(true)
 

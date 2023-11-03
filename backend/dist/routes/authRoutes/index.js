@@ -10,9 +10,9 @@ const product_1 = __importDefault(require("./product"));
 const router = (0, express_1.Router)();
 router.use(middleware_1.isAuthenticated);
 router.use(profile_1.default);
+router.use(product_1.default);
 router.use(middleware_1.isSeller);
 router.get('/isSeller', (req, res) => {
     res.sendStatus(200);
 });
-router.use(product_1.default);
 exports.default = router;

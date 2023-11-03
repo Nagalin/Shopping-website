@@ -1,5 +1,5 @@
 import { Router } from "express";
-import User from "../database/schema/User";
+import User from '../database/schema/User';
 import Profile from '../database/schema/Profile'
 const bcrypt = require('bcryptjs')
 require('dotenv').config()

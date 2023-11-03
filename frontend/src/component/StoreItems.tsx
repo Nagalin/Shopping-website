@@ -2,6 +2,8 @@ import React from 'react'
 import { Button, Card } from 'react-bootstrap'
 import { useShoppingCart } from '../context/shoppingCartContext'
 import formatCurrency from '../utilites/formatCurrency'
+import useToggle from '../hook/useToggle'
+import Chatbox from '../features/chat/component/ChatBox'
 
 type StoreItemsProps = {
     _id: string,
@@ -16,8 +18,11 @@ export default function StoreItems({ _id, name, price, imageName }: StoreItemsPr
         decreaseQuantity,
         removeFromCart
     } = useShoppingCart()
+
+    const {value,toggle} = useToggle()
     const quantiy = getItemQuantity(_id)
     return (
+        <>
         <Card>
             <Card.Img
                 variant='top'
@@ -37,7 +42,7 @@ export default function StoreItems({ _id, name, price, imageName }: StoreItemsPr
                             + Add To Cart
                         </Button>
 
-                        <Button role='chat' className='btn-success mt-3'>
+                        <Button onClick={toggle} role='chat' className='btn-success mt-3'>
                             Chat with seller
                         </Button>
                     </>
@@ -62,5 +67,18 @@ export default function StoreItems({ _id, name, price, imageName }: StoreItemsPr
                 )}
             </Card.Body>
         </Card>
+       {/*  <div style={{
+            position : 'relative',
+            left : '132%'
+            }}>
+        <Chatbox/>
+
+        </div> */}
+        {value && <div style={{
+            position: 'relative',
+            bottom: '20px',
+            left: '800px',
+          }}> <Chatbox/></div>  }
+        </>
     )
 }

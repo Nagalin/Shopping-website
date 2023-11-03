@@ -1,19 +1,29 @@
 
-import React, { useRef } from 'react'
+import React, { useEffect,useRef,useState } from 'react'
 import { Button, Nav, Navbar as NavbarBS } from 'react-bootstrap'
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 import useToggle from '../hook/useToggle'
-import Chatbox from '../features/chat/component/Chatbox'
+import Chatbox from '../features/chat/component/ChatHistory'
 import { useShoppingCart } from '../context/shoppingCartContext'
 import useClickOutside from '../hook/useClickOutside'
-
-
+import useLogin from '../features/authentication/hook/useLogin'
+import axios from '../lib/axios'
 export default function Navbar() {
     const navigate = useNavigate()
+    const [isSeller,setIsSeller] = useState<Boolean>(false)
+   
     const { value, toggle, setValue } = useToggle()
     const buttonRef = useRef<HTMLButtonElement>(null)
     const { getAllItemQuantity, openCart, cartItems } = useShoppingCart()
     useClickOutside({ ref: buttonRef, cb: () => setValue(false), value: value })
+
+    useEffect(()=>{
+        axios.get('/isSeller')
+        .then(()=>{
+            setIsSeller(true)
+        })
+        
+    },[])
 
     const logout = () => {
         localStorage.removeItem('jwtToken')
@@ -30,9 +40,10 @@ export default function Navbar() {
                     <Nav.Link data-testid='homepage' to='/homepage' as={NavLink}>
                         Store
                     </Nav.Link>
-                    <Nav.Link data-testid='my-store' to='/my-store' as={NavLink}>
+                    {isSeller && <Nav.Link data-testid='my-store' to='/my-store' as={NavLink}>
                         My-store
-                    </Nav.Link>
+                    </Nav.Link>}
+                    
                     <Nav.Link data-testid='contact' to='/contact' as={NavLink}>
                         Contact
                     </Nav.Link>

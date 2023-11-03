@@ -18,14 +18,16 @@ export default function useLogin() {
         }).then(response =>{
           if(response.status === 200) {
             localStorage.setItem('jwtToken',JSON.stringify(response.data.token))
-
             if(response.data.role === 'buyer') navigate('/homepage')
             if(response.data.role === 'seller') navigate('/my-store')
+            
             
           }
         }).catch(err =>{
           console.error(err)
           setError(err.response.data.message)
+        }).finally(()=>{
+          
         })
     }
 

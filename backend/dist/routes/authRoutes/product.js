@@ -16,6 +16,7 @@ const express_1 = require("express");
 const multer_1 = __importDefault(require("multer"));
 const path_1 = __importDefault(require("path"));
 const Product_1 = __importDefault(require("../../database/schema/Product"));
+const fs = require('fs'); // Import the File System module
 require('dotenv').config();
 const router = (0, express_1.Router)();
 const storage = multer_1.default.diskStorage({
@@ -57,13 +58,28 @@ router.put('/update', (req, res) => __awaiter(void 0, void 0, void 0, function* 
 }));
 router.delete('/delete:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        const product = yield Product_1.default.findOne({ _id: req.params.id });
+        if (!product) {
+            return res.status(404).send("Product not found");
+        }
+        // Get the image filename or path from the product document
+        const imageFilename = product.imageName;
+        // Delete the product from the database
         yield Product_1.default.deleteOne({ _id: req.params.id });
+        // Check if the image filename or path exists and delete the image file from the server
+        if (imageFilename) {
+            fs.unlink(`./public/${imageFilename}`, (err) => {
+                if (err) {
+                    console.error(`Error deleting image: ${err}`);
+                }
+            });
+        }
+        res.sendStatus(200);
     }
     catch (error) {
         console.error(error);
-        return res.sendStatus(500);
+        res.sendStatus(500);
     }
-    res.sendStatus(200);
 }));
 router.post('/add-product', upload.single('img'), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;

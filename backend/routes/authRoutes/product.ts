@@ -2,6 +2,7 @@ import { Router } from "express";
 import multer from 'multer'
 import path from 'path'
 import Product from "../../database/schema/Product";
+const fs = require('fs'); // Import the File System module
 require('dotenv').config()
 const router = Router()
 
@@ -50,16 +51,37 @@ router.put('/update', async (req, res) => {
 });
 
 
+
+
 router.delete('/delete:id', async (req, res) => {
     try {
-        await Product.deleteOne({ _id: req.params.id })
-        
+        const product = await Product.findOne({ _id: req.params.id });
+
+        if (!product) {
+            return res.status(404).send("Product not found");
+        }
+
+        // Get the image filename or path from the product document
+        const imageFilename = product.imageName;
+
+        // Delete the product from the database
+        await Product.deleteOne({ _id: req.params.id });
+
+        // Check if the image filename or path exists and delete the image file from the server
+        if (imageFilename) {
+            fs.unlink(`./public/${imageFilename}`, (err: any) => {
+                if (err) {
+                    console.error(`Error deleting image: ${err}`);
+                }
+            });
+        }
+
+        res.sendStatus(200);
     } catch (error) {
-        console.error(error)
-        return res.sendStatus(500)
+        console.error(error);
+        res.sendStatus(500);
     }
-    res.sendStatus(200)
-})
+});
 
 router.post('/add-product', upload.single('img'), async (req, res) => {
     const { name, price } = req.body
