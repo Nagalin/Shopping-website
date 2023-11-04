@@ -39,7 +39,7 @@ export default function StoreItems({ _id, name, price, imageName }: StoreItemsPr
                 {quantiy === 0 ? (
                     <>
                         <Button role='addToCart' onClick={() => increaseQuantity(_id,price,name,imageName)}>
-                            + Add To Cart
+                            Add To WistList
                         </Button>
 
                         <Button onClick={toggle} role='chat' className='btn-success mt-3'>

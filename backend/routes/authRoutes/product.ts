@@ -51,8 +51,6 @@ router.put('/update', async (req, res) => {
 });
 
 
-
-
 router.delete('/delete:id', async (req, res) => {
     try {
         const product = await Product.findOne({ _id: req.params.id });
