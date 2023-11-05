@@ -13,23 +13,26 @@ export default function useSearch(setItems: React.Dispatch<React.SetStateAction<
     const [didMounted,setDidMounted] = useState<boolean>(false)
 
     useEffect(() => {
-      if(searchField === '' && !didMounted) {
+      if(searchField === '' && didMounted) {
         axios.get('/store')
         .then((response)=>{
           if(response.status === 200) {
             console.log(response.data)
             setItems(response.data)
-            setDidMounted(true)
+            
           }
         })
-      }
+      } else {
         axios.get(`/search?searchField=${searchField}`)
         .then((response) => {
           if(response.status === 200) {
             console.log(response.data)
             setItems(response.data)
+            setDidMounted(true)
           }
         });
+      }
+        
       }, [searchField]);
 
   return {
