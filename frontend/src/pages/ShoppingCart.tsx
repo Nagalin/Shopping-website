@@ -1,8 +1,9 @@
-import React, {lazy, Suspense} from 'react'
+import React, {lazy, Suspense, useEffect, useState} from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import Pagination from '../features/pagination/component/Pagination'
 import usePagination from '../features/pagination/hook/usePagination'
 import useFetch from '../hook/useFetch'
+import Search from '../features/search-product/component/Search'
 const StoreItems = lazy(() => import('../component/StoreItems'))
 
 interface Items {
@@ -20,7 +21,17 @@ export default function ShoppingCart() {
     setCurrentPage
   } = usePagination()
 
-  const items = useFetch({url : '/store'}) as Items[]
+  const [items,setItems] = useState<Items[]>()
+
+ 
+  const data = useFetch({url : '/store'}) as Items[]
+
+  useEffect(()=>{
+    setItems(data)
+    console.log(data)
+  },[data])
+
+  
 
   if(items == null) return 
 
@@ -29,11 +40,7 @@ export default function ShoppingCart() {
   return (
     
     <Container>
-      <input type="text" className="form-control mt-4" placeholder='Search for items' 
-      style={{
-        maxWidth: '800px',
-        margin: '0 auto'
-      }} />
+      <Search setItems={setItems}/>
 
       <Row lg={3} sm={2} xs={1} style={{ marginTop: '20px' }} className='g-4'>
         {currentItems.map((val) => {
